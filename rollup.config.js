@@ -4,6 +4,10 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import replace from '@rollup/plugin-replace';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -38,15 +42,12 @@ export default {
 	},
 	plugins: [
 		replace({
-			// stringify the object
-			__myapp: JSON.stringify({
-			  env: {
-				isProd: production,
-				...config().parsed // attached the .env config
-			  }
-			}),
-		  }),
-		  svelte({
+			MOVIE_SECRET_KEY: JSON.stringify(process.env.MOVIE_SECRET_KEY) ,
+			PARSE_APP_ID: JSON.stringify(process.env.PARSE_APP_ID),
+			PARSE_SECRET_KEY: JSON.stringify(process.env.PARSE_SECRET_KEY),
+			PARSE_URL: JSON.stringify(process.env.PARSE_URL)
+        }),
+		svelte({
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production

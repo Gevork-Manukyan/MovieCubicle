@@ -1,5 +1,10 @@
 <script>
 	import NavBar from "./NavBar.svelte";
+
+	Parse.initialize(PARSE_APP_ID, PARSE_SECRET_KEY);
+	Parse.serverURL = PARSE_URL;
+
+
 </script>
 
 
@@ -8,7 +13,7 @@
 	<NavBar />
 </header>
 <main>
-	
+
 </main>
 <footer>
 
