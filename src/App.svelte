@@ -1,38 +1,6 @@
 <script>
 	import NavBar from "./NavBar.svelte";
-	import { baseRequest } from "./services/Api.svelte"
-
-	Parse.initialize(PARSE_APP_ID, PARSE_SECRET_KEY);
-	Parse.serverURL = PARSE_URL;
-
-	// TODO: Remove below test code
-	async function createParseUser() {
-		// Creates a new Parse "User" object, which is created by default in your Parse app
-		let user = new Parse.User();
-		// Set the input values to the new "User" object
-		user.set("username", "steve");
-		user.set("email", "Test1@test.com");
-		user.set("password", "123456");
-		try {
-			// Call the save method, which returns the saved object if successful
-			user = await user.save();
-			if (user !== null) {
-			// Notify the success by getting the attributes from the "User" object, by using the get method (the id attribute needs to be accessed directly, though)
-			alert(
-				`New object created with success! ObjectId: ${
-				user.id
-				}, ${user.get("username")}`
-			);
-			}
-		} catch (error) {
-			alert(`Error: ${error.message}`);
-		}
-	}
-	// createParseUser()
-
-	async function myfunc() {
-		console.log(await baseRequest())
-	}
+	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
 
 </script>
 
@@ -42,8 +10,8 @@
 	<NavBar />
 </header>
 <main>
-	<button on:click={myfunc}>
-		click
+	<button>
+		hello
 	</button>
 </main>
 <footer>
