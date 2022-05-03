@@ -1,6 +1,9 @@
 <script>
 	import NavBar from "./NavBar.svelte";
 	import Menu from "./menu.svelte";
+	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
+
+
 </script>
 
 
@@ -9,7 +12,9 @@
 	<NavBar />
 </header>
 <main>
+
 	<Menu />
+
 </main>
 <footer>
 

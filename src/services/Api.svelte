@@ -1,0 +1,34 @@
+<script context="module">
+    async function request(endpoint = "", method = 'GET', body = {}, headers = {}) {
+        try {
+			const res = await fetch(`https://api.themoviedb.org/3${endpoint}?api_key=${MOVIE_SECRET_KEY}`, {
+                method: method,
+                body: (method !== 'GET') ? JSON.stringify(body) : null,
+                headers: headers
+            })
+
+            return await res.json();
+
+		} catch (err) {
+			console.log(err);
+		}
+    }
+
+    export async function getAllWeeklyTrending() {
+        return await request("/trending/all/week");
+    }
+
+    export async function getAllDailyTrending() {
+        return await request("/trending/all/day");
+    }
+
+    /**
+     * 
+     * @param mediaType all, movie, tv, person
+     * @param timeWindow day, week
+     */
+    export async function getCustomTrending(mediaType, timeWindow) {
+        return await request(`/trending/${mediaType}/${timeWindow}`);
+    }
+
+</script>
