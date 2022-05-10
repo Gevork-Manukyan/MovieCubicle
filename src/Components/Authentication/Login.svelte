@@ -1,5 +1,19 @@
 <script>
     import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
+
+    let user;
+    async function login () {
+
+        user = Parse.User.logIn("Billy", "password").then((user) => {
+            console.log('User logged in successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+        }).catch((error) => {
+            console.log("Error: " + error.code + " " + error.message);
+        })
+        
+    }
+
+    console.log("Current User: ", Parse.User.current())
+    console.log("Test: " + Parse.User.current().get("username"))
 </script>
 
 
@@ -7,7 +21,7 @@
     <div>
         <h2 id="login-title">Login</h2>
     </div>
-    <Form on:submit={() => console.log("SUBMIT")}>
+    <Form on:submit={login}>
         <FormGroup>
             <Label for="userNameInput">Username</Label>
             <Input id="userNameInput" placeholder="Enter a value" />

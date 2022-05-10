@@ -8,6 +8,7 @@
 	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
 
 	
+	push("/signup")
 </script>
 
 
