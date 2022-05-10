@@ -1,5 +1,8 @@
 <script>
-    import { onMount } from "svelte";
+import { onMount } from "svelte";
+import { push } from "svelte-spa-router";
+import { Button } from "sveltestrap";
+import authenticationStore from "../Stores/AuthenticationStore";
   
     // Show mobile icon and display menu
     let showMobileMenu = false;
@@ -9,11 +12,6 @@
       { label: "Item 0", href: "#" },
       { label: "Item 1", href: "#" },
       { label: "Item 2", href: "#" },
-      { label: "Item 3", href: "#" },
-      { label: "Item 4", href: "#" },
-      { label: "Item 5", href: "#" },
-      { label: "Item 6", href: "#" },
-      { label: "Item 7", href: "#" }
     ];
   
     // Mobile menu click event handler
@@ -33,6 +31,14 @@
   
       mediaListener.addListener(mediaQueryHandler);
     });
+
+    const signout = () => {
+      Parse.User.logOut()
+      authenticationStore.set({
+        user: undefined
+      })
+      push("/login")
+    }
   </script>
   
   <nav>
@@ -47,6 +53,9 @@
           </li>
         {/each}
       </ul>
+      <div id="signoutBtn">
+        <Button on:click={signout}>Sign Out</Button>
+      </div>
     </div>
   </nav>
   
@@ -175,6 +184,12 @@
       align-items: center;
       padding: 0 10px;
       font-size: 13px;
+    }
+
+    #signoutBtn {
+      position: absolute;
+      right: 0;
+      margin-right: 30px;
     }
   
     @media only screen and (min-width: 767px) {

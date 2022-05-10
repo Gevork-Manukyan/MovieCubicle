@@ -1,4 +1,5 @@
 <script>
+    import NavBar from "./NavBar.svelte"
     import {push} from 'svelte-spa-router'
 	import authenticationStore from "../Stores/AuthenticationStore"
 	
@@ -13,6 +14,9 @@
 	}
 </script>
 
+<nav>
+    <NavBar />    
+</nav>
 <div class="banner">
     <!-- Name of Website -->
     <h2>Video can be the background of this</h2>
