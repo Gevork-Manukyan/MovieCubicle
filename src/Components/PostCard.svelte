@@ -1,6 +1,7 @@
 <script>
     export let movieTitle;
     export let movieOverview;
+    export let posterPath;
 </script>
 
 
@@ -8,7 +9,8 @@
     <!-- image of the movie goes here -->
     <!-- <img src="" alt=""> -->
     <!-- description of the movie goes here -->
-    <h2 class="Title">{movieTitle}</h2>
+    <h3 class="Title">{movieTitle}</h3>
+    <img src="https://image.tmdb.org/t/p/original{posterPath}" alt="{movieTitle} poster" />
     <p class="Overview">{movieOverview}</p>
 </div>
 
@@ -16,7 +18,6 @@
 <style>
     .postcard{
         width: 400px;
-        height: 300px;
         padding: 15px 20px;
         margin: 0px 15px 30px;
 
@@ -43,10 +44,11 @@
     }
 
     .Title{
-        height: 80px;
-        font-size: 14px;
-        margin: 4px 0;
-        padding: 0 5px;
+        font-size: 26px;
         color: white;
+    }
+
+    .Overview {
+        margin: 0px;
     }
 </style>

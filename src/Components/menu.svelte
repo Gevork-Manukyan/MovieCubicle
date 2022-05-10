@@ -19,7 +19,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     getAllWeeklyTrending().then((data) => {
        movies = data.results
     })
-    // $: console.log("MOVIES: ", movies)
+    $: console.log("MOVIES: ", movies)
 
 </script>
 
@@ -41,7 +41,10 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         <div class="movies-flex-container">
             <!-- postcards -->
             {#each movies as movie}
-                <PostCard movieTitle={movie?.title !== undefined ? movie?.title : movie?.name} movieOverview={movie?.overview} />
+                <PostCard movieTitle={movie?.title !== undefined ? movie?.title : movie?.name} 
+                          posterPath={movie?.poster_path}
+                          movieOverview={movie?.overview} 
+                          />
             {/each}
         </div>
     </div>
