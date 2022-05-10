@@ -1,9 +1,10 @@
 <script>
 import { push } from 'svelte-spa-router';
+import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
+import authenticationStore from "../../Stores/AuthenticationStore"
 
-    import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
-    import authenticationStore from "../../Stores/AuthenticationStore"
 
+    /**BACKEND**/
     let user;
     authenticationStore.subscribe((returnData) => {
         user = returnData.user
@@ -34,6 +35,26 @@ import { push } from 'svelte-spa-router';
             console.log("Error: " + error.code + " " + error.message);
         })
     }
+
+
+    /**FORM**/
+    const form = {
+        username: "",
+        password: ""
+    }
+
+    function updateForm (e) {
+        const input = e.data
+        const id = e.target.id
+
+        if (input === null) {
+            form[id] = form[id].substr(0, form[id].length - 1)
+            return;
+        }
+
+        form[id] += input
+    }
+
 </script>
 
 
@@ -43,13 +64,13 @@ import { push } from 'svelte-spa-router';
     </div>
     <Form on:submit={signup}>
         <FormGroup>
-            <Label for="userNameInput">Username</Label>
-            <Input id="userNameInput" placeholder="Enter a value" />
+            <Label for="username">Username</Label>
+            <Input id="username" placeholder="Enter a value" on:input={updateForm} value={form.username} />
         </FormGroup>
         
         <FormGroup>
-            <Label for="passwordInput">Password</Label>
-            <Input id="passwordInput" placeholder="Enter a value" />
+            <Label for="password">Password</Label>
+            <Input id="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
         </FormGroup>
         <div id="button-wrapper">
             <Button type="submit">Submit</Button>
