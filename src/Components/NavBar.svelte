@@ -9,8 +9,8 @@ import authenticationStore from "../Stores/AuthenticationStore";
   
     // List of navigation items
     const navItems = [
-      { label: "Item 0", href: "#" },
-      { label: "Item 1", href: "#" },
+      { label: "Home", href: "#" },
+      { label: "Trivia", href: "#" },
       { label: "Item 2", href: "#" },
     ];
   

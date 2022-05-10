@@ -1,5 +1,6 @@
 <script>
     import NavBar from "./NavBar.svelte"
+    import PostCard from "./PostCard.svelte"
     import {push} from 'svelte-spa-router'
 	import authenticationStore from "../Stores/AuthenticationStore"
 	
@@ -31,38 +32,10 @@
         <div class = "sectionTitle">Latest!</div>
         <div class="post">
             <!-- postcards -->
-            <div class="postcards">
-                <a href="#">
-                    <!-- image of the movie goes here -->
-                    <img src="" alt="">
-                    <!-- description of the movie goes here -->
-                    <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
-                </a>
-            </div>
-            <div class="postcards">
-                <a href="#">
-                    <!-- image of the movie goes here -->
-                    <img src="" alt="">
-                    <!-- description of the movie goes here -->
-                    <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
-                </a>
-            </div>
-            <div class="postcards">
-                <a href="#">
-                    <!-- image of the movie goes here -->
-                    <img src="" alt="">
-                    <!-- description of the movie goes here -->
-                    <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
-                </a>
-            </div>
-            <div class="postcards">
-                <a href="#">
-                    <!-- image of the movie goes here -->
-                    <img src="" alt="">
-                    <!-- description of the movie goes here -->
-                    <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
-                </a>
-            </div>
+            <PostCard />
+            <PostCard />
+            <PostCard />
+            <PostCard />
         </div>
     </div>
 </div>
@@ -71,6 +44,7 @@
     div{
         color: aliceblue;
     }
+
     .banner{
         height: auto;
         width: 100%;
@@ -81,15 +55,26 @@
         padding: 60px 0;;
         background-color: darkred;
     }
+
     .banner h2{
         font-size: 30px;
         padding: 0 50px;
     }
+
     .banner p{
         padding: 0 20%;
     }
 
-    /* movie cards */
+    .post{
+        height: auto;
+        width: 100;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 200px);
+        grid-gap:40px;
+
+    }
+
     .section{
         height:auto;
         width:95%;
@@ -111,41 +96,5 @@
         color: red;
 
     }
-    .post{
-        height: auto;
-        width: 100;
-        padding: 0 20px;
-        display: grid;
-        grid-template-columns: repeat(2, 200px);
-        grid-gap:40px;
-
-    }
-
-    .post .postcards{
-        width: 200px;
-        height: 300px;
-        background: rgb(0, 0, 0);
-        border: 2px solid red;
-        border-radius: 10%;
-    }
-
-    .postcards a{
-        text-decoration: none;
-        
-    }
-    .postCards a img{
-        width:100%;
-        height: 280px;
-
-    }
-
-    .Title{
-        height: 80px;
-        font-size: 14px;
-        margin: 4px 0;
-        padding: 0 5px;
-        color: white;
-    }
-
 
 </style>

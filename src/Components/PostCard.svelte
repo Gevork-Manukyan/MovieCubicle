@@ -6,7 +6,7 @@
 <div class="postcard">
     <a href="#">
         <!-- image of the movie goes here -->
-        <img src="" alt="">
+        <!-- <img src="" alt=""> -->
         <!-- description of the movie goes here -->
         <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
     </a>

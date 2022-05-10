@@ -4,7 +4,7 @@
 	import Login from './Components/Authentication/Login.svelte'
 	import SignUp from './Components/Authentication/Signup.svelte'
 	import NavBar from "./Components/NavBar.svelte";
-	import Menu from "./Components/menu.svelte";
+	import Menu from "./Components/Menu.svelte";
 	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
 	import authenticationStore from "./Stores/AuthenticationStore"
 	
