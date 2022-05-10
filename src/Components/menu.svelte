@@ -1,8 +1,9 @@
 <script>
-    import NavBar from "./NavBar.svelte"
-    import PostCard from "./PostCard.svelte"
-    import {push} from 'svelte-spa-router'
-	import authenticationStore from "../Stores/AuthenticationStore"
+import NavBar from "./NavBar.svelte"
+import PostCard from "./PostCard.svelte"
+import {push} from 'svelte-spa-router'
+import authenticationStore from "../Stores/AuthenticationStore"
+import { getAllWeeklyTrending } from "../services/Api.svelte"
 	
     
     const currentUser = Parse.User.current()
@@ -13,6 +14,13 @@
 			user: currentUser
 		})
 	}
+
+    let movies = []
+    getAllWeeklyTrending().then((data) => {
+       movies = data.results
+    })
+    // $: console.log("MOVIES: ", movies)
+
 </script>
 
 <nav>
@@ -32,13 +40,9 @@
         <div class = "sectionTitle">Latest!</div>
         <div class="movies-flex-container">
             <!-- postcards -->
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            {#each movies as movie}
+                <PostCard movieTitle={movie?.title !== undefined ? movie?.title : movie?.name} movieOverview={movie?.overview} />
+            {/each}
         </div>
     </div>
 </div>
