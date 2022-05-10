@@ -15,7 +15,7 @@
             <div class="postcards">
                 <a href="#">
                     <!-- image of the movie goes here -->
-                    <img src="public/favicon.png" alt="">
+                    <img src="" alt="">
                     <!-- description of the movie goes here -->
                     <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
                 </a>
@@ -23,7 +23,7 @@
             <div class="postcards">
                 <a href="#">
                     <!-- image of the movie goes here -->
-                    <img src="public/favicon.png" alt="">
+                    <img src="" alt="">
                     <!-- description of the movie goes here -->
                     <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
                 </a>
@@ -31,7 +31,7 @@
             <div class="postcards">
                 <a href="#">
                     <!-- image of the movie goes here -->
-                    <img src="public/favicon.png" alt="">
+                    <img src="" alt="">
                     <!-- description of the movie goes here -->
                     <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
                 </a>
@@ -39,7 +39,7 @@
             <div class="postcards">
                 <a href="#">
                     <!-- image of the movie goes here -->
-                    <img src="public/favicon.png" alt="">
+                    <img src="" alt="">
                     <!-- description of the movie goes here -->
                     <h2 class="Title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae ducimus minima, placeat excepturi quae velit corporis quaerat natus perferendis ratione fugiat. Laudantium itaque consectetur ullam iusto, cum quia repellendus officiis?</h2>
                 </a>
@@ -48,7 +48,9 @@
     </div>
 </div>
 
+<script>
 
+</script>
 
 <style>
     div{
