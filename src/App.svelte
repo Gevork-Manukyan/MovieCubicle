@@ -2,6 +2,7 @@
 	import NavBar from "./NavBar.svelte";
 	import Menu from "./menu.svelte";
 	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
+	import { Badge, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 	// TODO: Remove below test code
 	async function createParseUser() {
@@ -27,17 +28,29 @@
 		}
 	}
 	// createParseUser()
+
+
+	
 </script>
 
 
 <header>
-	<h1 id="title">Movie Gang</h1>
-	<NavBar />
+	<!-- <h1 id="title">Movie Gang</h1> -->
 </header>
 <main>
-
-	<Menu />
-
+	<Form>
+		<FormGroup floating label="Floating Label">
+		  <Input placeholder="Enter a value" />
+		</FormGroup>
+	  
+		<FormGroup floating>
+		  <Input placeholder="Enter a value" />
+		  <div slot="label">
+			Floating Label Slot <Badge>3</Badge>
+		  </div>
+		</FormGroup>
+	  
+	  </Form>
 </main>
 <footer>
 
@@ -45,9 +58,9 @@
 
 
 <style>
-	#title {
+	/* #title {
 		margin: 0;
 		padding: 17px 0px 17px 20px;
 		color: #fff;
-	}
+	} */
 </style>
