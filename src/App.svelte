@@ -1,10 +1,10 @@
 <script>
-import NavBar from "./NavBar.svelte";
-import Menu from "./menu.svelte";
-import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
-import Router, {push} from 'svelte-spa-router'
-import Login from "./Authentication/Login.svelte";
-import Signup from "./Authentication/Signup.svelte"
+	import Router from 'svelte-spa-router'
+	import Login from './Components/Authentication/Login.svelte'
+	import SignUp from './Components/Authentication/Signup.svelte'
+	import NavBar from "./Components/NavBar.svelte";
+	import Menu from "./Components/menu.svelte";
+	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
 
 	// TODO: Remove below test code
 	async function createParseUser() {
@@ -37,14 +37,17 @@ import Signup from "./Authentication/Signup.svelte"
 
 
 <header>
-	<h1 id="title">Movie Gang</h1>
+	<!-- <h1 id="title">Movie Gang</h1>
+	<NavBar /> -->
 </header>
 <main>
+
+	<!-- <Menu /> -->
 	<Router routes={{
-		'/': Menu,
-		'login': Login,
-		'signup': Signup,
-	}}/>
+		'/': SignUp,
+		'/login': Login,
+	}} />
+
 </main>
 <footer>
 
@@ -58,3 +61,4 @@ import Signup from "./Authentication/Signup.svelte"
 		color: #fff;
 	} */
 </style>
+  
