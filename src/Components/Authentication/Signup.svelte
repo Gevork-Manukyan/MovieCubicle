@@ -19,9 +19,9 @@ import authenticationStore from "../../Stores/AuthenticationStore"
     async function signup() {
         
         let user = new Parse.User()
-        user.set("username", "Billy")
-        user.set("password", "password")
-        user.set("email", "Billy@gmail.com")
+        user.set("username", form.username)
+        user.set("password", form.password)
+        user.set("email", form.email)
 
         user.signUp().then((parseUser) => {
             console.log('User created successful with name: ' + parseUser.get("username") + ' and email: ' + parseUser.get("email"));
@@ -40,6 +40,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
     /**FORM**/
     const form = {
         username: "",
+        email: "",
         password: ""
     }
 
@@ -47,6 +48,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         const input = e.data
         const id = e.target.id
 
+        // Handle backspace
         if (input === null) {
             form[id] = form[id].substr(0, form[id].length - 1)
             return;
@@ -67,11 +69,17 @@ import authenticationStore from "../../Stores/AuthenticationStore"
             <Label for="username">Username</Label>
             <Input id="username" placeholder="Enter a value" on:input={updateForm} value={form.username} />
         </FormGroup>
+
+        <FormGroup>
+            <Label for="email">Email</Label>
+            <Input id="email" placeholder="Enter a value" on:input={updateForm} value={form.email} />
+        </FormGroup>
         
         <FormGroup>
             <Label for="password">Password</Label>
             <Input id="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
         </FormGroup>
+
         <div id="button-wrapper">
             <Button type="submit">Submit</Button>
         </div>

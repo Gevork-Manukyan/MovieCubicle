@@ -17,7 +17,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
 
     async function login () {
 
-        let parseUser = Parse.User.logIn("Billy", "password").then((parseUser) => {
+        let parseUser = Parse.User.logIn(form.username, form.password).then((parseUser) => {
             console.log('User logged in successful with name: ' + parseUser.get("username") + ' and email: ' + parseUser.get("email"));
 
             // set stored user to logged in user
@@ -42,6 +42,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         const input = e.data
         const id = e.target.id
 
+        // handle backspace
         if (input === null) {
             form[id] = form[id].substr(0, form[id].length - 1)
             return;
@@ -49,7 +50,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
 
         form[id] += input
     }
-    
+
 </script>
 
 
