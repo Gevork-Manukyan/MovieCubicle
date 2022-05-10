@@ -30,8 +30,11 @@
 <div class= "section">
     <div clss = content>
         <div class = "sectionTitle">Latest!</div>
-        <div class="post">
+        <div class="movies-flex-container">
             <!-- postcards -->
+            <PostCard />
+            <PostCard />
+            <PostCard />
             <PostCard />
             <PostCard />
             <PostCard />
@@ -65,14 +68,13 @@
         padding: 0 20%;
     }
 
-    .post{
+    .movies-flex-container{
         height: auto;
-        width: 100;
         padding: 0 20px;
-        display: grid;
-        grid-template-columns: repeat(2, 200px);
-        grid-gap:40px;
 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .section{
