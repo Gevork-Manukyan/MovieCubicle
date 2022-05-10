@@ -6,9 +6,19 @@
 	import NavBar from "./Components/NavBar.svelte";
 	import Menu from "./Components/menu.svelte";
 	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
-
+	import authenticationStore from "./Stores/AuthenticationStore"
 	
-	push("/signup")
+
+
+	const currentUser = Parse.User.current()
+	if (currentUser === null){		
+		push("/signup")
+	} else {
+		authenticationStore.set({
+			user: currentUser
+		})
+	}
+
 </script>
 
 

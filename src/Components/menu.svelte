@@ -1,3 +1,18 @@
+<script>
+    import {push} from 'svelte-spa-router'
+	import authenticationStore from "../Stores/AuthenticationStore"
+	
+    
+    const currentUser = Parse.User.current()
+	if (currentUser === null){		
+		push("/signup")
+	} else {
+		authenticationStore.set({
+			user: currentUser
+		})
+	}
+</script>
+
 <div class="banner">
     <!-- Name of Website -->
     <h2>Video can be the background of this</h2>
@@ -47,10 +62,6 @@
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
 
 <style>
     div{

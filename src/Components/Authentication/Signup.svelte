@@ -1,5 +1,19 @@
 <script>
+import { push } from 'svelte-spa-router';
+
     import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
+    import authenticationStore from "../../Stores/AuthenticationStore"
+
+    let user;
+    authenticationStore.subscribe((returnData) => {
+        user = returnData.user
+    })
+
+
+    // If user logged in already => go to home page
+    $: if (user !== undefined) {
+        push("/")
+    }
 
     async function signup() {
         
@@ -8,18 +22,18 @@
         user.set("password", "password")
         user.set("email", "Billy@gmail.com")
 
-        user.signUp().then((user) => {
-            console.log('User created successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+        user.signUp().then((parseUser) => {
+            console.log('User created successful with name: ' + parseUser.get("username") + ' and email: ' + parseUser.get("email"));
+
+            // set stored user to signup user
+            authenticationStore.set({
+                user: parseUser
+            })
+
         }).catch((error) => {
             console.log("Error: " + error.code + " " + error.message);
         })
     }
-
-    // createParseUser()	
-    function func () {
-        console.log("SUBMIT")
-    }
-
 </script>
 
 

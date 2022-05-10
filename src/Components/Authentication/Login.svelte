@@ -1,19 +1,39 @@
 <script>
-    import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
+import { push } from 'svelte-spa-router';
 
-    let user;
+    import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
+    import authenticationStore from "../../Stores/AuthenticationStore"
+
+    let user
+    authenticationStore.subscribe((returnedData) => {
+        user = returnedData.user
+    })
+
+    // If user logged in already => go to home page
+    $: if (user !== undefined) {
+        push("/")
+    }
+
+
+    let parseUser;
     async function login () {
 
-        user = Parse.User.logIn("Billy", "password").then((user) => {
-            console.log('User logged in successful with name: ' + user.get("username") + ' and email: ' + user.get("email"));
+        parseUser = Parse.User.logIn("Billy", "password").then((parseUser) => {
+            console.log('User logged in successful with name: ' + parseUser.get("username") + ' and email: ' + parseUser.get("email"));
+
+            // set stored user to logged in user
+            authenticationStore.set({
+                user: parseUser
+            })
+
         }).catch((error) => {
             console.log("Error: " + error.code + " " + error.message);
         })
         
     }
 
-    console.log("Current User: ", Parse.User.current())
-    console.log("Test: " + Parse.User.current().get("username"))
+    // console.log("Current User: ", Parse.User.current())
+    // console.log("Test: " + Parse.User.current().get("username"))
 </script>
 
 
