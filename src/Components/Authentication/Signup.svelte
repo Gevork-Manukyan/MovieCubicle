@@ -77,7 +77,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         
         <FormGroup>
             <Label for="password">Password</Label>
-            <Input id="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
+            <Input id="password" type="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
         </FormGroup>
 
         <div id="button-wrapper">
