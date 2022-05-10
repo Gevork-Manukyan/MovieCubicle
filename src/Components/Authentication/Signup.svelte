@@ -1,5 +1,5 @@
 <script>
-import { push } from 'svelte-spa-router';
+import { push, link } from 'svelte-spa-router';
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 import authenticationStore from "../../Stores/AuthenticationStore"
 
@@ -80,8 +80,13 @@ import authenticationStore from "../../Stores/AuthenticationStore"
             <Input id="password" type="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
         </FormGroup>
 
-        <div id="button-wrapper">
-            <Button type="submit">Submit</Button>
+        <div id="footer">
+            <div id="toLogin">
+                <a href="/login" use:link>Already have an account?</a>
+            </div>
+            <div id="button-wrapper">
+                <Button type="submit">Submit</Button>
+            </div>
         </div>
     </Form>
 </section>
@@ -106,8 +111,19 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         padding-top: 5px;
     }
 
+    #footer {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+
+    #toLogin {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
     #button-wrapper {
-        display: block;
+        display: inline-block;
         text-align: end;
     }
 </style>

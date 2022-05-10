@@ -12,7 +12,7 @@
 
 	const currentUser = Parse.User.current()
 	if (currentUser === null){		
-		push("/signup")
+		push("/login")
 	} else {
 		authenticationStore.set({
 			user: currentUser
