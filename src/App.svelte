@@ -1,8 +1,10 @@
 <script>
-	import NavBar from "./NavBar.svelte";
-	import Menu from "./menu.svelte";
-	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
-	import { Badge, Form, FormGroup, Input, Label } from 'sveltestrap';
+import NavBar from "./NavBar.svelte";
+import Menu from "./menu.svelte";
+import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
+import Router, {push} from 'svelte-spa-router'
+import Login from "./Authentication/Login.svelte";
+import Signup from "./Authentication/Signup.svelte"
 
 	// TODO: Remove below test code
 	async function createParseUser() {
@@ -29,28 +31,20 @@
 	}
 	// createParseUser()
 
-
+	// push("/login")
 	
 </script>
 
 
 <header>
-	<!-- <h1 id="title">Movie Gang</h1> -->
+	<h1 id="title">Movie Gang</h1>
 </header>
 <main>
-	<Form>
-		<FormGroup floating label="Floating Label">
-		  <Input placeholder="Enter a value" />
-		</FormGroup>
-	  
-		<FormGroup floating>
-		  <Input placeholder="Enter a value" />
-		  <div slot="label">
-			Floating Label Slot <Badge>3</Badge>
-		  </div>
-		</FormGroup>
-	  
-	  </Form>
+	<Router routes={{
+		'/': Menu,
+		'login': Login,
+		'signup': Signup,
+	}}/>
 </main>
 <footer>
 
