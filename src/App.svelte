@@ -1,6 +1,9 @@
 <script>
-	import NavBar from "./NavBar.svelte";
-	import Menu from "./menu.svelte";
+	import Router from 'svelte-spa-router'
+	import Login from './Components/Authentication/Login.svelte'
+	import SignUp from './Components/Authentication/Signup.svelte'
+	import NavBar from "./Components/NavBar.svelte";
+	import Menu from "./Components/menu.svelte";
 	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
 
 	// TODO: Remove below test code
@@ -31,12 +34,16 @@
 
 
 <header>
-	<h1 id="title">Movie Gang</h1>
-	<NavBar />
+	<!-- <h1 id="title">Movie Gang</h1>
+	<NavBar /> -->
 </header>
 <main>
 
-	<Menu />
+	<!-- <Menu /> -->
+	<Router routes={{
+		'/': SignUp,
+		'/login': Login,
+	}} />
 
 </main>
 <footer>
@@ -45,9 +52,10 @@
 
 
 <style>
-	#title {
+	/* #title {
 		margin: 0;
 		padding: 17px 0px 17px 20px;
 		color: #fff;
-	}
+	} */
 </style>
+  
