@@ -28,9 +28,11 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     // $: console.log(movieInfo)
 
+    let textAreaContent = ""
     function handleSubmit (e) {
         e.preventDefault()
-        console.log("SUBMIT", e)
+        console.log("SUBMIT: ", textAreaContent)
+        return textAreaContent;
     }
 
 </script>
@@ -59,7 +61,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         <h2 id="reviewTitle">Review</h2>
         <Form on:submit={handleSubmit}>
             <FormGroup floating label="What did you think...">
-                <Input type="textarea" placeholder="What did you think..." />
+                <Input type="textarea" placeholder="What did you think..." bind:value={textAreaContent} />
             </FormGroup>
             <div id="button-wrapper">
                 <Button type="submit">Submit</Button>
