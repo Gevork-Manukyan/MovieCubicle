@@ -88,6 +88,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     <div id="content-area">
         <div id="posterImg">
+            <span class="material-symbols-outlined">grade</span>
             <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
         <div id="overview">
@@ -117,6 +118,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
 <style>
+
     #content-wrapper {
         height: fit-content;
         width: 780px;
@@ -163,6 +165,25 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         width: fit-content;
         margin-left: 60px;
         user-select: none;
+    }
+
+    .material-symbols-outlined {
+        color: yellow;
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+    }
+
+    .material-symbols-outlined:hover {
+        color: yellow;
+        cursor: pointer;
+        font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
     }
 
     #review-area {
