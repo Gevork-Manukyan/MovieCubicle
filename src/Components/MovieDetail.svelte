@@ -8,15 +8,112 @@ import movieDataStore from "../Stores/MovieDataStore"
         movieInfo = moviesData[params.index]
     })
 
-    // $: console.log(movieInfo)
+    const title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
+    const overview = movieInfo?.overview
+    const genreIds = movieInfo?.genre_ids
+    const backdropPath = movieInfo?.backdrop_path
+    const posterPath = movieInfo?.poster_path
+    const backdropURL = "https://image.tmdb.org/t/p/w780"
+    const posterURL = "https://image.tmdb.org/t/p/w300"
+
+    $: console.log(movieInfo)
 
 </script>
 
 
-<div>
-    
+<div id="content-wrapper">
+    <div id="backdrop" class="item">
+        <div class="img-wrap">
+            <!-- <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" /> -->
+            <img id="backdrop-img" src={backdropURL + "/AdyJH8kDm8xT8IKTlgpEC15ny4u.jpg"} alt="{title} back drop" />
+        </div>
+    </div>
+    <h1 id="movieTitle">
+        {title === undefined ? "MOVIE TITLE" : title}
+    </h1>
+
+    <div id="content-area">
+        <div id="posterImg">
+            <!-- <img src={posterURL + posterPath} alt="{title} poster" /> -->
+            <img src={posterURL + "/wRnbWt44nKjsFPrqSmwYki5vZtF.jpg"} alt="{title} poster" />
+        </div>
+        <div id="overview">
+            {overview}
+            <!-- Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary. -->
+        </div>
+    </div>
 </div>
 
+
+
 <style>
-    
+    #content-wrapper {
+        height: auto;
+        width: 780px;
+        padding-bottom: 50px;
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    #backdrop {
+        text-align: center;
+    }
+
+    #backdrop-img {
+
+    }
+
+    #movieTitle {
+        margin-top: 25px;
+        color: white;
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    #content-area {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: row;
+        width: inherit;
+    }
+
+    #overview {
+        margin: 0px 25px;
+        color: white;
+        text-align: justify;
+        align-self: center;
+    }
+
+    #posterImg {
+        width: fit-content;
+        margin-left: 15px;
+    }
+
+    .item {
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    .item .img-wrap:before {
+        content: '';
+        background-image: linear-gradient(to top, rgb(255, 255, 255, 1), rgba(239,239,239,0));
+        height: 320px;
+        width: 780px;
+        position: absolute;
+        right: auto;
+        bottom: 0;
+        left: auto;
+    }
+    .item .img-wrap:after {
+        content: '';
+        display: block;
+    }
+    .img-wrap img {
+        border: 0;
+        box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.2);
+    }
 </style>

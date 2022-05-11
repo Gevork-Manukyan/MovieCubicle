@@ -21,6 +21,7 @@
 			user: currentUser
 		})
 	}
+	
 
 </script>
 
