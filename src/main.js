@@ -1,4 +1,5 @@
 import App from './App.svelte';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Initialize Parse Server
 Parse.initialize(PARSE_APP_ID, PARSE_SECRET_KEY);
