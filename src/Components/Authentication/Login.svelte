@@ -17,13 +17,15 @@ import authenticationStore from "../../Stores/AuthenticationStore"
 
     async function login () {
 
-        let parseUser = Parse.User.logIn(form.username, form.password).then((parseUser) => {
+        let parseUser = Parse.User.logIn(username, password).then((parseUser) => {
             console.log('User logged in successful with name: ' + parseUser.get("username") + ' and email: ' + parseUser.get("email"));
 
             // set stored user to logged in user
             authenticationStore.set({
                 user: parseUser
             })
+
+            push("/")
 
         }).catch((error) => {
             console.log("Error: " + error.code + " " + error.message);
@@ -33,23 +35,8 @@ import authenticationStore from "../../Stores/AuthenticationStore"
 
 
     /**FORM**/
-    const form = {
-        username: "",
-        password: ""
-    }
-
-    function updateForm (e) {
-        const input = e.data
-        const id = e.target.id
-
-        // handle backspace
-        if (input === null) {
-            form[id] = form[id].substr(0, form[id].length - 1)
-            return;
-        }
-
-        form[id] += input
-    }
+    let username = ""
+    let password = ""
 
 </script>
 
@@ -61,12 +48,12 @@ import authenticationStore from "../../Stores/AuthenticationStore"
     <Form on:submit={login}>
         <FormGroup>
             <Label for="username">Username</Label>
-            <Input id="username" placeholder="Enter a value" on:input={updateForm} value={form.username} />
+            <Input id="username" placeholder="Enter a value" bind:value={username} />
         </FormGroup>
         
         <FormGroup>
             <Label for="password">Password</Label>
-            <Input id="password" type="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
+            <Input id="password" type="password" placeholder="Enter a value" bind:value={password} />
         </FormGroup>
 
         <div id="footer">
@@ -87,6 +74,8 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         left: 50%;
         top: 50%;
         transform: translate(-50%, -70%);
+        /* color: white; */
+        background-color: white;
 
         width: 500px;
         padding: 15px;
@@ -104,6 +93,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
     #login-title {
         padding-bottom: 20px;
         padding-top: 5px;
+        /* color: white; */
     }
 
     #toSignup {

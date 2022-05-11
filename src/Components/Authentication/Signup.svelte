@@ -19,9 +19,9 @@ import authenticationStore from "../../Stores/AuthenticationStore"
     async function signup() {
         
         let user = new Parse.User()
-        user.set("username", form.username)
-        user.set("password", form.password)
-        user.set("email", form.email)
+        user.set("username", username)
+        user.set("password", password)
+        user.set("email", email)
 
         user.signUp().then((parseUser) => {
             console.log('User created successful with name: ' + parseUser.get("username") + ' and email: ' + parseUser.get("email"));
@@ -38,24 +38,10 @@ import authenticationStore from "../../Stores/AuthenticationStore"
 
 
     /**FORM**/
-    const form = {
-        username: "",
-        email: "",
-        password: ""
-    }
+    let username = ""
+    let email = ""
+    let password = ""
 
-    function updateForm (e) {
-        const input = e.data
-        const id = e.target.id
-
-        // Handle backspace
-        if (input === null) {
-            form[id] = form[id].substr(0, form[id].length - 1)
-            return;
-        }
-
-        form[id] += input
-    }
 
 </script>
 
@@ -67,17 +53,17 @@ import authenticationStore from "../../Stores/AuthenticationStore"
     <Form on:submit={signup}>
         <FormGroup>
             <Label for="username">Username</Label>
-            <Input id="username" placeholder="Enter a value" on:input={updateForm} value={form.username} />
+            <Input id="username" placeholder="Enter a value" bind:value={username} />
         </FormGroup>
 
         <FormGroup>
             <Label for="email">Email</Label>
-            <Input id="email" placeholder="Enter a value" on:input={updateForm} value={form.email} />
+            <Input id="email" placeholder="Enter a value" bind:value={email} />
         </FormGroup>
         
         <FormGroup>
             <Label for="password">Password</Label>
-            <Input id="password" type="password" placeholder="Enter a value" on:input={updateForm} value={form.password} />
+            <Input id="password" type="password" placeholder="Enter a value" bind:value={password} />
         </FormGroup>
 
         <div id="footer">
@@ -98,6 +84,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         left: 50%;
         top: 50%;
         transform: translate(-50%, -70%);
+        background-color: white;
 
         width: 500px;
         padding: 15px;
