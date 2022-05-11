@@ -1,5 +1,7 @@
 <script>
 import movieDataStore from "../Stores/MovieDataStore"
+import { getAllWeeklyTrending } from "../services/Api.svelte"
+
 
     export let params;
 
@@ -8,15 +10,21 @@ import movieDataStore from "../Stores/MovieDataStore"
         movieInfo = moviesData[params.index]
     })
 
-    const title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
-    const overview = movieInfo?.overview
-    const genreIds = movieInfo?.genre_ids
-    const backdropPath = movieInfo?.backdrop_path
-    const posterPath = movieInfo?.poster_path
+    if (movieInfo === undefined) {
+        getAllWeeklyTrending().then((data) => {
+            movieDataStore.set(data.results)
+            console.log("HERE")
+        })
+    }
+
+    $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
+    $: overview = movieInfo?.overview
+    $: genreIds = movieInfo?.genre_ids
+    $: backdropPath = movieInfo?.backdrop_path
+    $: posterPath = movieInfo?.poster_path
     const backdropURL = "https://image.tmdb.org/t/p/w780"
     const posterURL = "https://image.tmdb.org/t/p/w300"
 
-    $: console.log(movieInfo)
 
 </script>
 
@@ -24,8 +32,7 @@ import movieDataStore from "../Stores/MovieDataStore"
 <div id="content-wrapper">
     <div id="backdrop" class="item">
         <div class="img-wrap">
-            <!-- <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" /> -->
-            <img id="backdrop-img" src={backdropURL + "/AdyJH8kDm8xT8IKTlgpEC15ny4u.jpg"} alt="{title} back drop" />
+            <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" />
         </div>
     </div>
     <h1 id="movieTitle">
@@ -34,12 +41,10 @@ import movieDataStore from "../Stores/MovieDataStore"
 
     <div id="content-area">
         <div id="posterImg">
-            <!-- <img src={posterURL + posterPath} alt="{title} poster" /> -->
-            <img src={posterURL + "/wRnbWt44nKjsFPrqSmwYki5vZtF.jpg"} alt="{title} poster" />
+            <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
         <div id="overview">
             {overview}
-            <!-- Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary. -->
         </div>
     </div>
 </div>
