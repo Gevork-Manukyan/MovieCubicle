@@ -26,13 +26,25 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     const backdropURL = "https://image.tmdb.org/t/p/w780"
     const posterURL = "https://image.tmdb.org/t/p/w300"
 
-    // $: console.log(movieInfo)
 
     let textAreaContent = ""
-    function handleSubmit (e) {
+    async function handleSubmit (e) {
         e.preventDefault()
-        console.log("SUBMIT: ", textAreaContent)
-        return textAreaContent;
+
+        const currentUser = Parse.User.current()
+        const movieTitle = title
+        
+        const newReviewObject = new Parse.Object('Reviews')
+        newReviewObject.set('user', currentUser)
+        newReviewObject.set('movieTitle', movieTitle)
+        newReviewObject.set('review', textAreaContent)
+
+        try {
+            const result = await newReviewObject.save()
+            textAreaContent = ""
+        } catch (e) {
+            console.error('Error while creating review Parse Object: ', error);
+        }
     }
 
 </script>
@@ -86,6 +98,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     #backdrop {
         text-align: center;
+        user-select: none;
     }
 
     #backdrop-img {
@@ -117,6 +130,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     #posterImg {
         width: fit-content;
         margin-left: 60px;
+        user-select: none;
     }
 
     #review-area {
