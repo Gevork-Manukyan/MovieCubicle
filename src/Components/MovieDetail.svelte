@@ -33,6 +33,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         query.include('user')
         query.include('movieTitle')
         query.include('review')
+        query.descending("createdAt")
 
         const result = query.find().then(result => {
             reviewStore.set(result)
@@ -61,7 +62,11 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         newReviewObject.set('review', textAreaContent)
 
         try {
-            const result = await newReviewObject.save()
+            await newReviewObject.save().then(result => {
+                reviews.unshift(result)
+                reviewStore.set(reviews)
+            })
+
             textAreaContent = ""
         } catch (e) {
             console.error('Error while creating review Parse Object: ', error);
