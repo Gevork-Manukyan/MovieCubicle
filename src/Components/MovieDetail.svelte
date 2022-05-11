@@ -1,6 +1,7 @@
 <script>
 import movieDataStore from "../Stores/MovieDataStore"
 import { getAllWeeklyTrending } from "../services/Api.svelte"
+import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
     export let params;
@@ -27,6 +28,11 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
     // $: console.log(movieInfo)
 
+    function handleSubmit (e) {
+        e.preventDefault()
+        console.log("SUBMIT", e)
+    }
+
 </script>
 
 
@@ -34,7 +40,6 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     <div id="backdrop" class="item">
         <div class="img-wrap">
             <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" />
-            <!-- <img id="backdrop-img" src={backdropURL + "/AdyJH8kDm8xT8IKTlgpEC15ny4u.jpg"} alt="{title} back drop" /> -->
         </div>
     </div>
     <h1 id="movieTitle">
@@ -44,12 +49,22 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     <div id="content-area">
         <div id="posterImg">
             <img src={posterURL + posterPath} alt="{title} poster" />
-            <!-- <img src={posterURL + "/wRnbWt44nKjsFPrqSmwYki5vZtF.jpg"} alt="{title} poster" /> -->
         </div>
         <div id="overview">
             {overview}
-            <!-- Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary. -->
         </div>
+    </div>
+
+    <div id="review-area">
+        <h2 id="reviewTitle">Review</h2>
+        <Form on:submit={handleSubmit}>
+            <FormGroup floating label="What did you think...">
+                <Input type="textarea" placeholder="What did you think..." />
+            </FormGroup>
+            <div id="button-wrapper">
+                <Button type="submit">Submit</Button>
+            </div>
+        </Form>
     </div>
 </div>
 
@@ -57,14 +72,11 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
 <style>
     #content-wrapper {
-        height: auto;
+        height: fit-content;
         width: 780px;
-        padding-bottom: 50px;
 
         position: absolute;
         left: 50%;
-        top: 0;
-        bottom: 0;
         transform: translateX(-50%);
 
         background-color: rgba(0, 0, 0, 0.4);
@@ -93,7 +105,8 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     }
 
     #overview {
-        margin: 0px 25px;
+        margin-left: 25px;
+        margin-right: 60px;
         color: white;
         text-align: justify;
         align-self: center;
@@ -101,7 +114,20 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
     #posterImg {
         width: fit-content;
-        margin-left: 15px;
+        margin-left: 60px;
+    }
+
+    #review-area {
+        margin: 75px 75px ;
+    }
+    
+    #reviewTitle {
+        color: white;
+    }
+    
+    #button-wrapper {
+        display: block;
+        text-align: right;
     }
 
     .item {
