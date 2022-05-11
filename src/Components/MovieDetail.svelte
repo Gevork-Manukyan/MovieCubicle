@@ -1,5 +1,7 @@
 <script>
+import Review from "../Components/Review.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
+import reviewStore from "../Stores/ReviewStore"
 import { getAllWeeklyTrending } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
@@ -14,7 +16,23 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     if (movieInfo === undefined) {
         getAllWeeklyTrending().then((data) => {
             movieDataStore.set(data.results)
-            console.log("HERE")
+        })
+    }
+
+    let reviews
+    reviewStore.subscribe((reviewData) => {
+        reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
+    })
+    $: console.log("REVIEWS: ", reviews)
+
+    if (reviews === undefined || reviews.length === 0) {
+        const query = new Parse.Query("Reviews")
+        query.include('user')
+        query.include('movieTitle')
+        query.include('review')
+
+        const result = query.find().then(result => {
+            reviewStore.set(result)
         })
     }
 
@@ -79,6 +97,10 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
                 <Button type="submit">Submit</Button>
             </div>
         </Form>
+    </div>
+
+    <div id="current-reviews">
+
     </div>
 </div>
 
