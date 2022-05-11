@@ -1,11 +1,16 @@
 <script>
-    export let movieTitle;
-    export let movieOverview;
-    export let posterPath;
+import { push } from "svelte-spa-router";
+
+    export let movieDetails
+    export let index
+
+    const movieTitle = movieDetails?.title !== undefined ? movieDetails?.title : movieDetails?.name;
+    const movieOverview = movieDetails?.overview;
+    const posterPath= movieDetails?.poster_path;
 </script>
 
-
-<div class="postcard">
+<!-- on:click={push("/movie/" + movieTitle)} -->
+<div class="postcard" on:click={push("/movie/" + index)}>
     <!-- image of the movie goes here -->
     <!-- <img src="" alt=""> -->
     <!-- description of the movie goes here -->
