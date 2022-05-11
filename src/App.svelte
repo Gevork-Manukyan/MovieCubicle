@@ -3,9 +3,8 @@
 	import {wrap} from 'svelte-spa-router/wrap'
 	import Login from './Components/Authentication/Login.svelte'
 	import SignUp from './Components/Authentication/Signup.svelte'
-	import NavBar from "./Components/NavBar.svelte";
+	import MovieDetail from "./Components/MovieDetail.svelte"
 	import Menu from "./Components/Menu.svelte";
-	import { getAllDailyTrending, getCustomTrending } from "./services/Api.svelte"
 	import authenticationStore from "./Stores/AuthenticationStore"
 	
 
@@ -36,6 +35,7 @@
 		'/': Menu,
 		'/login': Login,
 		'/signup': SignUp,
+		'/movie/:index': MovieDetail
 	}} />
 
 </main>
