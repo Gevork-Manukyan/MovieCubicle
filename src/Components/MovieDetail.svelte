@@ -8,6 +8,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     export let params;
 
+    // RETRIEVE MOVIE INFO
     let movieInfo
     movieDataStore.subscribe((moviesData) => {
         movieInfo = moviesData[params.index]
@@ -19,6 +20,8 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         })
     }
 
+
+    // RETRIEVE REVIEWS
     let reviews
     reviewStore.subscribe((reviewData) => {
         reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
@@ -100,7 +103,9 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     </div>
 
     <div id="current-reviews">
-
+        {#each reviews as review}
+            <Review user={review.get("user")} review={review.get("review")} />
+        {/each}
     </div>
 </div>
 
