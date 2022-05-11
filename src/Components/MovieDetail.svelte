@@ -25,6 +25,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     const backdropURL = "https://image.tmdb.org/t/p/w780"
     const posterURL = "https://image.tmdb.org/t/p/w300"
 
+    // $: console.log(movieInfo)
 
 </script>
 
@@ -33,6 +34,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     <div id="backdrop" class="item">
         <div class="img-wrap">
             <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" />
+            <!-- <img id="backdrop-img" src={backdropURL + "/AdyJH8kDm8xT8IKTlgpEC15ny4u.jpg"} alt="{title} back drop" /> -->
         </div>
     </div>
     <h1 id="movieTitle">
@@ -42,9 +44,11 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     <div id="content-area">
         <div id="posterImg">
             <img src={posterURL + posterPath} alt="{title} poster" />
+            <!-- <img src={posterURL + "/wRnbWt44nKjsFPrqSmwYki5vZtF.jpg"} alt="{title} poster" /> -->
         </div>
         <div id="overview">
             {overview}
+            <!-- Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary. -->
         </div>
     </div>
 </div>
@@ -59,6 +63,8 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
         position: absolute;
         left: 50%;
+        top: 0;
+        bottom: 0;
         transform: translateX(-50%);
 
         background-color: rgba(0, 0, 0, 0.4);
