@@ -158,7 +158,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         </div>
     </div>
 
-    <div>
+    <div id="trailer">
         <iframe title="trailer" width="420" height="315"
             src="https://www.youtube.com/embed/{video?.key}">
         </iframe>
@@ -271,8 +271,16 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             'opsz' 48
     }
 
+    #trailer {
+        text-align: center;
+        padding-bottom: 32px;
+        margin-top: 50px;
+        border-bottom: dotted white 5px;
+    }
+
     #review-area {
-        margin: 75px 75px ;
+        margin: 0px 75px 75px;
+        padding-top: 32px;
     }
     
     #reviewTitle {
