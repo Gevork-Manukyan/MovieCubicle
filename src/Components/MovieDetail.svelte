@@ -135,12 +135,24 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         }
     }
 
+
+    let isPlayed = false
+    function handlePlayButtonClick () {
+        isPlayed = true
+    }
+
 </script>
 
 
 <div id="content-wrapper">
     <div id="backdrop" class="item">
         <div class="img-wrap">
+            <span class={`material-symbols-outlined playBtn ${isPlayed ? "hidden": ""}`} on:click={handlePlayButtonClick}>play_circle</span>
+            <div id="trailer" class={`${isPlayed ? "" : "hidden"}`}>
+                <iframe title="trailer" width="500" height="395"
+                    src="https://www.youtube.com/embed/{video?.key}">
+                </iframe>
+            </div>
             <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" />
         </div>
     </div>
@@ -156,12 +168,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         <div id="overview">
             {overview}
         </div>
-    </div>
-
-    <div id="trailer">
-        <iframe title="trailer" width="420" height="315"
-            src="https://www.youtube.com/embed/{video?.key}">
-        </iframe>
     </div>
 
     <div id="review-area">
@@ -213,6 +219,28 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     }
 
+    .material-symbols-outlined.playBtn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(5);
+        color: rgba(0, 0, 0, 0.498);
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+    }
+
+    .material-symbols-outlined.playBtn:hover {
+        cursor: pointer;
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+    }
+
     #movieTitle {
         margin-top: 25px;
         color: white;
@@ -241,7 +269,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         user-select: none;
     }
 
-    .material-symbols-outlined {
+    .material-symbols-outlined.star {
         user-select: none;
         color: yellow;
         font-variation-settings:
@@ -251,7 +279,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             'opsz' 48
     }
 
-    .material-symbols-outlined:hover {
+    .material-symbols-outlined.star:hover {
         color: yellow;
         cursor: pointer;
         font-variation-settings:
@@ -273,13 +301,17 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     #trailer {
         text-align: center;
-        padding-bottom: 32px;
-        margin-top: 50px;
-        border-bottom: dotted white 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* padding-bottom: 32px;
+        margin-top: 50px; */
     }
-
+    
     #review-area {
-        margin: 0px 75px 75px;
+        border-top: dotted white 5px;
+        margin: 64px 75px 75px;
         padding-top: 32px;
     }
     
@@ -314,5 +346,9 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     .img-wrap img {
         border: 0;
         box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.2);
+    }
+
+    .hidden {
+        display: none !important;
     }
 </style>
