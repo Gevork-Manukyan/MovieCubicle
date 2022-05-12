@@ -6,9 +6,10 @@
 	import MovieDetail from "./Components/MovieDetail.svelte"
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
+	import favoritesStore from "./Stores/FavoritesStore"
 	
 
-
+	// Authentication check
 	const currentUser = Parse.User.current()
 	if (currentUser === null){		
 		push("/login")
@@ -20,8 +21,13 @@
 		authenticationStore.set({
 			user: currentUser
 		})
-	}
-	
+	}	
+
+
+	// Get favorites
+	const userFavorites = new Set(currentUser.get("favorites"))
+	favoritesStore.set(userFavorites)
+	console.log("APP: ", userFavorites)
 
 </script>
 

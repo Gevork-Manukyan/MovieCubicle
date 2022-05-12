@@ -2,6 +2,7 @@
 import Review from "../Components/Review.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
+import favoritesStore from "../Stores/FavoritesStore"
 import { getAllWeeklyTrending } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
@@ -22,13 +23,14 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
     // RETRIEVE REVIEWS
-    let reviews
+    let reviews = []
     reviewStore.subscribe((reviewData) => {
-        reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
+        if (reviewData !== undefined)
+            reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
     })
-    $: console.log("REVIEWS: ", reviews)
+    // $: console.log("REVIEWS: ", reviews)
 
-    if (reviews === undefined || reviews.length === 0) {
+    if (reviews === undefined) {
         const query = new Parse.Query("Reviews")
         query.include('user')
         query.include('movieTitle')
@@ -73,6 +75,17 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         }
     }
 
+
+    let favorites
+    favoritesStore.subscribe((data) => {
+        favorites = data
+    })
+    $: console.log("MovieDetails: ", favorites)
+    function handleStarClick () {
+        favorites.add(title)
+        favoritesStore.set(favorites)
+    }
+
 </script>
 
 
@@ -88,7 +101,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     <div id="content-area">
         <div id="posterImg">
-            <span class="material-symbols-outlined">grade</span>
+            <span on:click={handleStarClick} class="material-symbols-outlined star">grade</span>
             <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
         <div id="overview">
@@ -118,6 +131,12 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
 <style>
+
+    .star {
+        position: absolute;
+        margin-top: 17px;
+        margin-left: 17px;
+    }
 
     #content-wrapper {
         height: fit-content;
@@ -168,6 +187,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     }
 
     .material-symbols-outlined {
+        user-select: none;
         color: yellow;
         font-variation-settings:
             'FILL' 0,

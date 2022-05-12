@@ -51,6 +51,7 @@ import { push } from "svelte-spa-router";
     .Title{
         font-size: 26px;
         color: white;
+        text-align: center;
     }
 
     .Overview {
