@@ -3,7 +3,7 @@ import Review from "../Components/Review.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
 import favoritesStore from "../Stores/FavoritesStore"
-import { getAllWeeklyTrending } from "../services/Api.svelte"
+import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
@@ -20,6 +20,35 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             movieDataStore.set(data.results)
         })
     }
+    // $:console.log("MOVIEINFO: ", movieInfo)
+
+    // RETRIEVE TRAILER
+    let video
+    $: if (movieInfo?.id !== undefined) {
+
+        const mediaType = movieInfo?.media_type
+        // MOVIES
+        if (mediaType === "movie") {
+            getMovieTrailer(movieInfo?.id).then(data => {
+                
+                // console.log("VIDEO: ", data)
+                video = data?.results?.filter((element) => {
+                    if (element.name === "Official Trailer" || element.name === "Main Trailer")
+                        return element;
+                })[0]
+            })
+        } 
+        // TV SHOWS
+        else if (mediaType === "tv") {
+            getTvShowTrailer(movieInfo?.id).then(data => {
+
+                video = data?.results?.filter((element) => {
+                    if (element.name === "Official Trailer" || element.name === "Main Trailer")
+                        return element;
+                })[0]
+            })
+        }
+    }
 
 
     // RETRIEVE REVIEWS
@@ -27,7 +56,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     reviewStore.subscribe((reviewData) => {
         reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
     })
-    $: console.log("REVIEWS: ", reviews)
+    // $: console.log("REVIEWS: ", reviews)
 
     if (reviews === undefined || reviews.length === 0) {
         const query = new Parse.Query("Reviews")
@@ -79,7 +108,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     favoritesStore.subscribe((data) => {
         favorites = data
     })
-    $: console.log("MovieDetails: ", favorites)
+    // $: console.log("MovieDetails: ", favorites)
     async function handleStarClick () {
 
         // Unfavorite
@@ -127,6 +156,12 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         <div id="overview">
             {overview}
         </div>
+    </div>
+
+    <div>
+        <iframe title="trailer" width="420" height="315"
+            src="https://www.youtube.com/embed/{video?.key}">
+        </iframe>
     </div>
 
     <div id="review-area">
