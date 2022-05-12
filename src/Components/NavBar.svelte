@@ -11,7 +11,6 @@ import authenticationStore from "../Stores/AuthenticationStore";
     const navItems = [
       { label: "Home", href: "#" },
       { label: "Trivia", href: "#" },
-      { label: "Item 2", href: "#" },
     ];
   
     // Mobile menu click event handler

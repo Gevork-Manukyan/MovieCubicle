@@ -2,6 +2,7 @@
 import Review from "../Components/Review.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
+import favoritesStore from "../Stores/FavoritesStore"
 import { getAllWeeklyTrending } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
@@ -22,13 +23,14 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
     // RETRIEVE REVIEWS
-    let reviews
+    let reviews = []
     reviewStore.subscribe((reviewData) => {
-        reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
+        if (reviewData !== undefined)
+            reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
     })
-    $: console.log("REVIEWS: ", reviews)
+    // $: console.log("REVIEWS: ", reviews)
 
-    if (reviews === undefined || reviews.length === 0) {
+    if (reviews === undefined) {
         const query = new Parse.Query("Reviews")
         query.include('user')
         query.include('movieTitle')
@@ -73,6 +75,38 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         }
     }
 
+
+    let favorites
+    favoritesStore.subscribe((data) => {
+        favorites = data
+    })
+    $: console.log("MovieDetails: ", favorites)
+    async function handleStarClick () {
+
+        // Unfavorite
+        if (favorites.has(title)) {
+            favorites.delete(title)
+            favoritesStore.set(favorites)
+        }
+        
+        // Favorite        
+        else {
+            favorites.add(title)
+            favoritesStore.set(favorites)
+        }
+        
+        // Update Server
+        const favoritesArray = [...favorites]
+        try {
+            const user = Parse.User.current()
+            user.set("favorites", favoritesArray)
+            await user.save()
+
+        } catch(e) {
+            console.error("Error trying to update favorites")
+        }
+    }
+
 </script>
 
 
@@ -88,6 +122,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     <div id="content-area">
         <div id="posterImg">
+            <span class={`material-symbols-outlined star ${favorites.has(title) ? "favorited" : ""}`} on:click={handleStarClick} >grade</span>
             <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
         <div id="overview">
@@ -117,6 +152,13 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
 <style>
+
+    .star {
+        position: absolute;
+        margin-top: 17px;
+        margin-left: 17px;
+    }
+
     #content-wrapper {
         height: fit-content;
         width: 780px;
@@ -163,6 +205,36 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         width: fit-content;
         margin-left: 60px;
         user-select: none;
+    }
+
+    .material-symbols-outlined {
+        user-select: none;
+        color: yellow;
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+    }
+
+    .material-symbols-outlined:hover {
+        color: yellow;
+        cursor: pointer;
+        font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+    }
+
+    .material-symbols-outlined.favorited {
+        color: yellow;
+        cursor: pointer;
+        font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
     }
 
     #review-area {

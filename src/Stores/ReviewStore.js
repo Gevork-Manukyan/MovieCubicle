@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 
-const reviewStore = writable([])
+// Will be array
+const reviewStore = writable(undefined)
 
 export default reviewStore
