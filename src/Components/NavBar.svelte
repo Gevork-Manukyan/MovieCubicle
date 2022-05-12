@@ -1,6 +1,6 @@
 <script>
 import { onMount } from "svelte";
-import { push } from "svelte-spa-router";
+import { link, push } from "svelte-spa-router";
 import { Button } from "sveltestrap";
 import authenticationStore from "../Stores/AuthenticationStore";
   
@@ -9,8 +9,8 @@ import authenticationStore from "../Stores/AuthenticationStore";
   
     // List of navigation items
     const navItems = [
-      { label: "Home", href: "#" },
-      { label: "Trivia", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Trivia", href: "/" },
     ];
   
     // Mobile menu click event handler
@@ -48,7 +48,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
       <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
         {#each navItems as item}
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} use:link>{item.label}</a>
           </li>
         {/each}
       </ul>
