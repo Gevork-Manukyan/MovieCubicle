@@ -81,9 +81,30 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         favorites = data
     })
     $: console.log("MovieDetails: ", favorites)
-    function handleStarClick () {
-        favorites.add(title)
-        favoritesStore.set(favorites)
+    async function handleStarClick () {
+
+        // Unfavorite
+        if (favorites.has(title)) {
+            favorites.delete(title)
+            favoritesStore.set(favorites)
+        }
+        
+        // Favorite        
+        else {
+            favorites.add(title)
+            favoritesStore.set(favorites)
+        }
+        
+        // Update Server
+        const favoritesArray = [...favorites]
+        try {
+            const user = Parse.User.current()
+            user.set("favorites", favoritesArray)
+            await user.save()
+
+        } catch(e) {
+            console.error("Error trying to update favorites")
+        }
     }
 
 </script>
@@ -101,7 +122,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     <div id="content-area">
         <div id="posterImg">
-            <span on:click={handleStarClick} class="material-symbols-outlined star">grade</span>
+            <span class={`material-symbols-outlined star ${favorites.has(title) ? "favorited" : ""}`} on:click={handleStarClick} >grade</span>
             <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
         <div id="overview">
@@ -197,6 +218,16 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     }
 
     .material-symbols-outlined:hover {
+        color: yellow;
+        cursor: pointer;
+        font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+    }
+
+    .material-symbols-outlined.favorited {
         color: yellow;
         cursor: pointer;
         font-variation-settings:
