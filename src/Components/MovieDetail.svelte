@@ -23,14 +23,13 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
     // RETRIEVE REVIEWS
-    let reviews = []
+    let reviews
     reviewStore.subscribe((reviewData) => {
-        if (reviewData !== undefined)
-            reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
+        reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
     })
-    // $: console.log("REVIEWS: ", reviews)
+    $: console.log("REVIEWS: ", reviews)
 
-    if (reviews === undefined) {
+    if (reviews === undefined || reviews.length === 0) {
         const query = new Parse.Query("Reviews")
         query.include('user')
         query.include('movieTitle')
