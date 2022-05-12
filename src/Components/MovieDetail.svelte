@@ -27,7 +27,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     reviewStore.subscribe((reviewData) => {
         reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
     })
-    $: console.log("REVIEWS: ", reviews)
+    // $: console.log("REVIEWS: ", reviews)
 
     if (reviews === undefined || reviews.length === 0) {
         const query = new Parse.Query("Reviews")
@@ -64,6 +64,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
         try {
             await newReviewObject.save().then(result => {
+                // console.log(Parse.User.current().get("username"))
                 reviews.unshift(result)
                 reviewStore.set(reviews)
             })
@@ -79,7 +80,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     favoritesStore.subscribe((data) => {
         favorites = data
     })
-    $: console.log("MovieDetails: ", favorites)
+    // $: console.log("MovieDetails: ", favorites)
     async function handleStarClick () {
 
         // Unfavorite
@@ -142,7 +143,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     </div>
 
     <div id="current-reviews">
-        {#each reviews as review}
+        {#each reviews as review (review.id) }
             <Review user={review.get("user")} review={review.get("review")} />
         {/each}
     </div>
