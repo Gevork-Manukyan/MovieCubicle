@@ -40,7 +40,7 @@ import { push } from "svelte-spa-router";
         cursor: pointer;
         transform: translateY(-5px) scale(1.04);
         /* box-shadow: 0px 11px 17px 5px rgba(0,0,0,0.75); */
-        border: 4px solid gold;
+        border: 4px solid white;
     }
 
     .postcard img{

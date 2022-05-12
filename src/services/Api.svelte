@@ -31,4 +31,12 @@
         return await request(`/trending/${mediaType}/${timeWindow}`);
     }
 
+    export async function getMovieTrailer(movieID) {
+        return await request(`/movie/${movieID}/videos`)
+    }
+
+    export async function getTvShowTrailer(showID) {
+        return await request(`/tv/${showID}/videos`)
+    }
+
 </script>

@@ -3,7 +3,7 @@ import Review from "../Components/Review.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
 import favoritesStore from "../Stores/FavoritesStore"
-import { getAllWeeklyTrending } from "../services/Api.svelte"
+import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
@@ -19,6 +19,35 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         getAllWeeklyTrending().then((data) => {
             movieDataStore.set(data.results)
         })
+    }
+    // $:console.log("MOVIEINFO: ", movieInfo)
+
+    // RETRIEVE TRAILER
+    let video
+    $: if (movieInfo?.id !== undefined) {
+
+        const mediaType = movieInfo?.media_type
+        // MOVIES
+        if (mediaType === "movie") {
+            getMovieTrailer(movieInfo?.id).then(data => {
+                
+                // console.log("VIDEO: ", data)
+                video = data?.results?.filter((element) => {
+                    if (element.name === "Official Trailer" || element.name === "Main Trailer")
+                        return element;
+                })[0]
+            })
+        } 
+        // TV SHOWS
+        else if (mediaType === "tv") {
+            getTvShowTrailer(movieInfo?.id).then(data => {
+
+                video = data?.results?.filter((element) => {
+                    if (element.name === "Official Trailer" || element.name === "Main Trailer")
+                        return element;
+                })[0]
+            })
+        }
     }
 
 
@@ -107,12 +136,24 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         }
     }
 
+
+    let isPlayed = false
+    function handlePlayButtonClick () {
+        isPlayed = true
+    }
+
 </script>
 
 
 <div id="content-wrapper">
     <div id="backdrop" class="item">
         <div class="img-wrap">
+            <span class={`material-symbols-outlined playBtn ${isPlayed ? "hidden": ""}`} on:click={handlePlayButtonClick}>play_circle</span>
+            <div id="trailer" class={`${isPlayed ? "" : "hidden"}`}>
+                <iframe title="trailer" width="500" height="395"
+                    src="https://www.youtube.com/embed/{video?.key}">
+                </iframe>
+            </div>
             <img id="backdrop-img" src={backdropURL + backdropPath} alt="{title} back drop" />
         </div>
     </div>
@@ -179,6 +220,28 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     }
 
+    .material-symbols-outlined.playBtn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(5);
+        color: rgba(0, 0, 0, 0.498);
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+    }
+
+    .material-symbols-outlined.playBtn:hover {
+        cursor: pointer;
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+    }
+
     #movieTitle {
         margin-top: 25px;
         color: white;
@@ -207,7 +270,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         user-select: none;
     }
 
-    .material-symbols-outlined {
+    .material-symbols-outlined.star {
         user-select: none;
         color: yellow;
         font-variation-settings:
@@ -217,7 +280,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             'opsz' 48
     }
 
-    .material-symbols-outlined:hover {
+    .material-symbols-outlined.star:hover {
         color: yellow;
         cursor: pointer;
         font-variation-settings:
@@ -237,8 +300,20 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             'opsz' 48
     }
 
+    #trailer {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* padding-bottom: 32px;
+        margin-top: 50px; */
+    }
+    
     #review-area {
-        margin: 75px 75px ;
+        border-top: dotted white 5px;
+        margin: 64px 75px 75px;
+        padding-top: 32px;
     }
     
     #reviewTitle {
@@ -272,5 +347,9 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     .img-wrap img {
         border: 0;
         box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.2);
+    }
+
+    .hidden {
+        display: none !important;
     }
 </style>

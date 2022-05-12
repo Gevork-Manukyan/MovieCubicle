@@ -28,23 +28,22 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         })
     }
 
+    function runTrailers () {
+
+    }
+
 </script>
 
 <nav>
     <NavBar />    
 </nav>
 <div class="banner">
-    <!-- Name of Website -->
-    <h2>Video can be the background of this</h2>
-    <!-- description of website -->
-    <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, id cupiditate perferendis totam nulla eius, amet molestias adipisci doloribus officia voluptas molestiae, eveniet fuga incidunt maxime ducimus tenetur ipsam vero.
-    </p>
+    <h1>Movie Gang</h1>
 </div>
 
 <div class= "section">
     <div clss = content>
-        <div class = "sectionTitle">Latest!</div>
+        <div class = "sectionTitle"></div>
         <div class="movies-flex-container">
             <!-- postcards -->
             {#each movieData as movie, index}
@@ -66,17 +65,14 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 60px 0;;
+        padding: 40px 0;;
         background-color: darkred;
     }
 
-    .banner h2{
-        font-size: 30px;
-        padding: 0 50px;
-    }
-
-    .banner p{
-        padding: 0 20%;
+    .banner h1 {
+        font-size: 120px;
+        font-family: 'Alumni Sans Inline One', cursive;
+        color: white;
     }
 
     .movies-flex-container{
