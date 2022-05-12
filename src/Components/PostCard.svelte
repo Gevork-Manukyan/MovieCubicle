@@ -49,6 +49,7 @@ import { push } from "svelte-spa-router";
     }
 
     .Title{
+        text-align: center;
         font-size: 26px;
         color: white;
     }
