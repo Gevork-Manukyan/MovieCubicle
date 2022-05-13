@@ -2,8 +2,10 @@
 import { onMount } from "svelte";
 import { link, push } from "svelte-spa-router";
 import { Button } from "sveltestrap";
+import Api, { searchMovie } from "../services/Api.svelte";
 import authenticationStore from "../Stores/AuthenticationStore";
-  
+import { load } from "./search/search.svelte";
+
     // Show mobile icon and display menu
     let showMobileMenu = false;
   
@@ -37,6 +39,11 @@ import authenticationStore from "../Stores/AuthenticationStore";
         user: undefined
       })
       push("/login")
+    }
+  
+    function submitSearch(){
+      push("/search/" + inputvalue)
+      const res = searchMovie(inputvalue)
     }
   </script>
   

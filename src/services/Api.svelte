@@ -1,7 +1,7 @@
 <script context="module">
-    async function request(endpoint = "", method = 'GET', body = {}, headers = {}) {
+    async function request(endpoint = "", query = "", method = 'GET', body = {}, headers = {}) {
         try {
-			const res = await fetch(`https://api.themoviedb.org/3${endpoint}?api_key=${MOVIE_SECRET_KEY}`, {
+			const res = await fetch(`https://api.themoviedb.org/3${endpoint}?api_key=${MOVIE_SECRET_KEY}${query}`, {
                 method: method,
                 body: (method !== 'GET') ? JSON.stringify(body) : null,
                 headers: headers
@@ -33,6 +33,9 @@
 
     export async function getMovieTrailer(movieID) {
         return await request(`/movie/${movieID}/videos`)
+    }
+    export async function searchMovie(input) {
+        return await request(`/search/movie`, `&query=${input}&page=1&include_adult=false`)
     }
 
     export async function getTvShowTrailer(showID) {
