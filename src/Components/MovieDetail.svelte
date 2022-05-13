@@ -216,9 +216,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         user-select: none;
     }
 
-    #backdrop-img {
-
-    }
 
     .material-symbols-outlined.playBtn {
         position: absolute;

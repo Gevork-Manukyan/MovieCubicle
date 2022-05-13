@@ -4,9 +4,11 @@
 	import Login from './Components/Authentication/Login.svelte'
 	import SignUp from './Components/Authentication/Signup.svelte'
 	import MovieDetail from "./Components/MovieDetail.svelte"
+	import search from "./Components/search/[id].svelte"
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
+
 	
 
 	// Authentication check
@@ -42,7 +44,9 @@
 		'/': Menu,
 		'/login': Login,
 		'/signup': SignUp,
-		'/movie/:index': MovieDetail
+		'/movie/:index': MovieDetail,
+		'/search/:inputvalue': search,
+
 	}} />
 
 </main>

@@ -3,9 +3,11 @@ import { onMount } from "svelte";
 import { link, push } from "svelte-spa-router";
 import { Button } from "sveltestrap";
 import authenticationStore from "../Stores/AuthenticationStore";
-  
+
     // Show mobile icon and display menu
     let showMobileMenu = false;
+
+    let inputvalue="";
   
     // List of navigation items
     const navItems = [
@@ -38,6 +40,10 @@ import authenticationStore from "../Stores/AuthenticationStore";
       })
       push("/login")
     }
+  
+    function submitSearch(){
+      push("/search/" + inputvalue)
+    }
   </script>
   
   <nav>
@@ -52,6 +58,17 @@ import authenticationStore from "../Stores/AuthenticationStore";
           </li>
         {/each}
       </ul>
+     <div id="search">
+       <form on:submit|preventDefault={submitSearch} class="search">
+          <label for="search_movie">Search Movie</label>
+          <input
+          bind:value={inputvalue}
+              name="search_movie"
+              type="text"
+          />
+          <button type="submit" id="searchbutt">Search</button>
+     </form>
+      </div>
       <div id="signoutBtn">
         <Button on:click={signout}>Sign Out</Button>
       </div>
@@ -109,7 +126,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
     .mobile-icon:before {
       width: 66%;
     }
-  
+   
     .mobile-icon:after {
       width: 33%;
     }
