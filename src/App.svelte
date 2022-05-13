@@ -8,6 +8,7 @@
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
+import Search from './Components/search/search.svelte';
 	
 
 	// Authentication check
@@ -45,7 +46,6 @@
 		'/signup': SignUp,
 		'/movie/:index': MovieDetail,
 		'/search/:inputvalue': Search
-
 	}} />
 
 </main>
