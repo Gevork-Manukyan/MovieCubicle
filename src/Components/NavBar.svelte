@@ -2,6 +2,7 @@
 import { onMount } from "svelte";
 import { link, push } from "svelte-spa-router";
 import { Button } from "sveltestrap";
+import { searchMovie } from "../services/Api.svelte";
 import authenticationStore from "../Stores/AuthenticationStore";
 
     // Show mobile icon and display menu
