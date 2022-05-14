@@ -6,24 +6,30 @@
     import NavBar from "./NavBar.svelte";
     
     export let params
-    let movies=[];
-
-    const inputValue=params.inputvalue
+    $: inputValue=params.inputvalue
+    
+    $: movies=[];
+    searchStore.subscribe(data => {
+        movies = data
+    })
 
     async function fetchMovies(inputValue){
-        let res=await searchMovie(inputValue);
-        movies=res.results;
+        let res= await searchMovie(inputValue);
+        searchStore.set(res.results)
     }
 
-    fetchMovies(inputValue);
-    $: console.log("these are my movies: " +movies);   
+    $: fetchMovies(inputValue);
 
     $:movieDataStore.set(movies)
-    $:searchStore.set(movies)
+    
 </script>
 <nav>
     <NavBar />    
 </nav>
-<div>{#each movies as movie, index}
-    <PostCard movieDetails={movie} index={index}/>
-{/each}</div>
+
+
+<div>
+    {#each movies as movie, index (movie.id)}
+        <PostCard movieDetails={movie} index={index}/>
+    {/each}
+</div>

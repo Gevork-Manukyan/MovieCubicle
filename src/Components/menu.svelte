@@ -28,11 +28,9 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         popularMovies = data
     })
 
-    if (movieData.length === 0) {
-        getAllWeeklyTrending().then((data) => {
-            popularMovieStore.set(data.results)
-        })
-    }
+    getAllWeeklyTrending().then((data) => {
+        popularMovieStore.set(data.results)
+    })
     
     $: movieDataStore.set(popularMovies)
 
