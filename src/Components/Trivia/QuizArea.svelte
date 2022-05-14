@@ -97,7 +97,6 @@
   {#if representation.length > 0 && !resultsScreen}
     <span id="heading">
       Question {questionNo + 1}
-      <i id="category">(Category - {representation[questionNo].category})</i>
     </span>
     <span>{representation[questionNo].question}</span>
     <div id="difficulty">{representation[questionNo].difficulty}</div>
@@ -225,11 +224,6 @@
     text-align: center;
     border-radius: 16px;
     box-sizing: content-box;
-  }
-
-  #category {
-    font-size: 12px;
-    font-weight: normal;
   }
 
   #button-bar {
