@@ -7,7 +7,7 @@
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
-import Search from './Components/search/search.svelte';
+import Search from './Components/Search.svelte';
 	
 
 	// Authentication check

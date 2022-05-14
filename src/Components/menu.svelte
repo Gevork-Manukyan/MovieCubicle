@@ -4,6 +4,7 @@ import PostCard from "./PostCard.svelte"
 import {push} from 'svelte-spa-router'
 import authenticationStore from "../Stores/AuthenticationStore"
 import movieDataStore from "../Stores/MovieDataStore.js"
+import popularMovieStore from "../Stores/PopularMovieStore"
 import { getAllWeeklyTrending } from "../services/Api.svelte"
 	
     
@@ -22,15 +23,18 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         movieData = data
     })
 
+    let popularMovies = []
+    popularMovieStore.subscribe((data) => {
+        popularMovies = data
+    })
+
     if (movieData.length === 0) {
         getAllWeeklyTrending().then((data) => {
-            movieDataStore.set(data.results)
+            popularMovieStore.set(data.results)
         })
     }
-
-    function runTrailers () {
-
-    }
+    
+    $: movieDataStore.set(popularMovies)
 
 </script>
 
