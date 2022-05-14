@@ -16,17 +16,10 @@
     }
 
     fetchMovies(inputValue);
-    $: console.log("these are my movies: " +movies);
-
-    let movieData = []
-    movieDataStore.subscribe((data) => {
-        movieData = data
-    })
-    
+    $: console.log("these are my movies: " +movies);   
 
     $:movieDataStore.set(movies)
     $:searchStore.set(movies)
-    $: console.log("this is for MOVIE DATA: " +movieData);
 </script>
 <nav>
     <NavBar />    
