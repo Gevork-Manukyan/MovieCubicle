@@ -12,7 +12,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
     // List of navigation items
     const navItems = [
       { label: "Home", href: "/" },
-      { label: "Trivia", href: "/" },
+      { label: "Trivia", href: "/trivia" },
     ];
   
     // Mobile menu click event handler
