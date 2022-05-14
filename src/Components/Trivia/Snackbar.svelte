@@ -1,3 +1,17 @@
+<script>
+  export let message = '';
+</script>
+
+{#if message}
+  <div id="correct">
+    <span>Correct Answer</span>
+  </div>
+{:else}
+  <div id="wrong">
+    <span>Incorrect Answer</span>
+  </div>
+{/if}
+
 <style>
   div {
     height: 48px;
@@ -15,18 +29,15 @@
     font-size: 16px;
     color: white;
   }
+
+  #correct {
+    background-color: green;
+    box-shadow: 0 0 5px green;
+  }
+
+  #wrong {
+    background-color: red; 
+    box-shadow: 0 0 5px red;
+  }
+
 </style>
-
-<script>
-  export let message = '';
-</script>
-
-{#if message}
-  <div style="background-color: green; box-shadow: 0 0 5px green;">
-    <span>Correct Answer</span>
-  </div>
-{:else}
-  <div style="background-color: red; box-shadow: 0 0 5px red;">
-    <span>Incorrect Answer</span>
-  </div>
-{/if}

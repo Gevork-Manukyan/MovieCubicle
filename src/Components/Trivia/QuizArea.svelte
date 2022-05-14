@@ -13,7 +13,6 @@
   let buttonBarVisibility = true;
   let snackbarVisibility = false;
   let snackbarMessage = false;
-  let answeredQuestions = 0;
   let resultsScreen = false;
 
   $: representation = [];
@@ -58,7 +57,6 @@
 
   function handleAnswerChoice(e = {}) {
     if (!representation[questionNo].answered) {
-      answeredQuestions += 1;
       const representationCopy = { ...representation[questionNo] };
       representationCopy.answered = true;
       if (e.target.innerText === representation[questionNo].answer) {
@@ -154,8 +152,6 @@
         <Snackbar message={snackbarMessage} />
       </div>
     {/if}
-      {:else if answeredQuestions === 10}
-      <p>All answered</p>
    
   {:else if resultsScreen}
     <div id="results">
@@ -206,14 +202,9 @@
     float: right;
 
     color: white;
-    /* background-color: #16302b; */
     border: none;
     border-radius: 10px;
     cursor: pointer;
-  }
-
-  .button:hover {
-    /* box-shadow: 0 0 5px #16302b; */
   }
 
   #heading {
