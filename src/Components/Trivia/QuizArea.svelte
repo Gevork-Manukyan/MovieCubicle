@@ -1,121 +1,3 @@
-<style>
-  #main {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    height: calc(100vh - 40%);
-    width: calc(100vw - 40%);
-    padding: 15px;
-
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 0 5px white;
-
-    text-align: left;
-  }
-
-  span {
-    display: block;
-    margin-top: 20px;
-  }
-
-  button {
-    margin-top: 15px;
-    margin-right: 15px;
-    padding: 10px;
-    float: right;
-
-    color: white;
-    background-color: #16302b;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    box-shadow: 0 0 5px #16302b;
-  }
-
-  #heading {
-    font-size: 24px;
-    font-weight: bolder;
-  }
-
-  #difficulty {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    height: 25px;
-    width: 80px;
-    padding: 5px;
-
-    background: #1b3b6f;
-    color: white;
-    text-align: center;
-    border-radius: 16px;
-    box-sizing: content-box;
-  }
-
-  #category {
-    font-size: 12px;
-    font-weight: normal;
-  }
-
-  #button-bar {
-    position: absolute;
-    bottom: 16px;
-    right: 0;
-  }
-
-  #choice {
-    margin-top: 16px;
-    padding: 8px;
-
-    border: 1px solid #4e5656;
-    border-radius: 8px;
-  }
-
-  #choice:hover {
-    cursor: pointer;
-    background: #7ddf64;
-    border: 1px solid #7ddf64;
-    color: white;
-  }
-
-  #snackbar {
-    position: absolute;
-    left: 16px;
-    bottom: 24px;
-  }
-
-  #results {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-
-    text-align: center;
-  }
-
-  #score {
-    font-size: 48px;
-  }
-
-  @media screen and (max-width: 960px) {
-    #main {
-      width: calc(100vw - 15%);
-      height: calc(100vh - 30%);
-    }
-    #difficulty {
-      top: -16px;
-    }
-    #score {
-      font-size: 36px;
-    }
-  }
-</style>
-
 <script>
   import { onMount, createEventDispatcher } from 'svelte';
   import Snackbar from './Snackbar.svelte';
@@ -299,3 +181,122 @@
   {/if}
 
 </div>
+
+
+<style>
+  #main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    height: calc(100vh - 40%);
+    width: calc(100vw - 40%);
+    padding: 15px;
+
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 0 5px white;
+
+    text-align: left;
+  }
+
+  span {
+    display: block;
+    margin-top: 20px;
+  }
+
+  button {
+    margin-top: 15px;
+    margin-right: 15px;
+    padding: 10px;
+    float: right;
+
+    color: white;
+    background-color: #16302b;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    box-shadow: 0 0 5px #16302b;
+  }
+
+  #heading {
+    font-size: 24px;
+    font-weight: bolder;
+  }
+
+  #difficulty {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    height: 25px;
+    width: 80px;
+    padding: 5px;
+
+    background: #1b3b6f;
+    color: white;
+    text-align: center;
+    border-radius: 16px;
+    box-sizing: content-box;
+  }
+
+  #category {
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  #button-bar {
+    position: absolute;
+    bottom: 16px;
+    right: 0;
+  }
+
+  #choice {
+    margin-top: 16px;
+    padding: 8px;
+
+    border: 1px solid #4e5656;
+    border-radius: 8px;
+  }
+
+  #choice:hover {
+    cursor: pointer;
+    background: #7ddf64;
+    border: 1px solid #7ddf64;
+    color: white;
+  }
+
+  #snackbar {
+    position: absolute;
+    left: 16px;
+    bottom: 24px;
+  }
+
+  #results {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    text-align: center;
+  }
+
+  #score {
+    font-size: 48px;
+  }
+
+  @media screen and (max-width: 960px) {
+    #main {
+      width: calc(100vw - 15%);
+      height: calc(100vh - 30%);
+    }
+    #difficulty {
+      top: -16px;
+    }
+    #score {
+      font-size: 36px;
+    }
+  }
+</style>

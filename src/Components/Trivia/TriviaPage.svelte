@@ -1,24 +1,15 @@
-<style>
-    section {
-      text-align: center;
-      padding: 1em;
-      max-width: 240px;
-      margin: 0 auto;
-    }
-   
-    @media (min-width: 640px) {
-      section {
-        max-width: none;
-      }
-    }
-  </style>
   
   <script>
     import QuizArea from './QuizArea.svelte';
+    import NavBar from "../NavBar.svelte"
   
     let playerScore = 0;
     let visible = true;
   </script>
+  
+  <div id="navbar">
+    <NavBar />
+  </div>
   
   <section>
   
@@ -39,3 +30,18 @@
   
   </section>
   
+  <style>
+    section {
+      text-align: center;
+      padding: 1em;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+   
+    @media (min-width: 640px) {
+      section {
+        max-width: none;
+      }
+    }
+
+  </style>

@@ -53,7 +53,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
       </div>
       <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
         {#each navItems as item}
-          <li>
+          <li on:click={() => push(item.href)}>
             <a href={item.href} use:link>{item.label}</a>
           </li>
         {/each}

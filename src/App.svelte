@@ -8,7 +8,7 @@
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
-import TriviaPage from './Components/Trivia/TriviaPage.svelte';
+	import TriviaPage from './Components/Trivia/TriviaPage.svelte';
 	
 
 	// Authentication check
