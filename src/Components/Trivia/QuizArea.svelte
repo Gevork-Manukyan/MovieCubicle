@@ -1,5 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from 'svelte';
+  import { Button } from "sveltestrap";
   import Snackbar from './Snackbar.svelte';
 
   import { fadeIn, fadeOut } from './transitions.js';
@@ -80,9 +81,9 @@
         dispatch('resultsScreen', { showScore: false });
 
         if (score < 5) {
-          finalMessage = 'Are you on drugs? 😵';
+          finalMessage = 'Wow... that was terrible? 😵';
         } else if (score === 5) {
-          finalMessage = "Don't give up try harder. 🤓";
+          finalMessage = "An average Joe I see you are. 🤓";
         } else {
           finalMessage = "You're on fire!!! 🔥";
         }
@@ -93,7 +94,7 @@
   }
 </script>
 
-<div id="main" in:fadeIn out:fadeOut>
+<div id="main">
 
   {#if representation.length > 0 && !resultsScreen}
     <span id="heading">
@@ -107,9 +108,7 @@
       {#each representation[questionNo].answerChoices as choice}
         {#if representation[questionNo].answered && representation[questionNo].correct}
           {#if choice === representation[questionNo].answerChoice}
-            <div
-              id="choice"
-              style="background: #7DDF64; color: white; border-color: white">
+            <div id="choice" class="green">
               <i>{choice}</i>
             </div>
           {:else}
@@ -119,15 +118,11 @@
           {/if}
         {:else if representation[questionNo].answered && !representation[questionNo].correct}
           {#if choice === representation[questionNo].answer}
-            <div
-              id="choice"
-              style="background: #7DDF64; color: white; border-color: white">
+            <div id="choice" class="green">
               <i>{choice}</i>
             </div>
           {:else}
-            <div
-              id="choice"
-              style="background: #DE3C4B; color: white; border-color: white">
+            <div id="choice" class="red">
               <i>{choice}</i>
             </div>
           {/if}
@@ -142,12 +137,14 @@
     {#if buttonBarVisibility}
       <div id="button-bar">
         {#if questionNo < 9}
-          <button value="Next" on:click={() => handleClick('f')}>Next</button>
+          <div class="button">
+            <Button on:click={() => handleClick('f')}>Next</Button>
+          </div>
         {/if}
         {#if questionNo > 0}
-          <button value="Back" on:click={() => handleClick('b')}>
-            Previous
-          </button>
+          <div class="button">
+            <Button on:click={() => handleClick('b')}>Previous</Button>
+          </div>
         {/if}
       </div>
     {/if}
@@ -172,10 +169,7 @@
       <p style="font-size: 24px">Refresh the page to play again</p>
     </div>
   {:else}
-    <span
-      style="position: absolute; left: 50%; top: 50%; transform:
-      translateX(-50%) translateY(-50%); font-weight: bolder; font-size: 36px;
-      margin: 0">
+    <span id="fetchingQuestions">
       Fetching questions...
     </span>
   {/if}
@@ -195,7 +189,7 @@
 
     background-color: white;
     border-radius: 6px;
-    box-shadow: 0 0 5px white;
+    box-shadow: 0 0 35px red;
 
     text-align: left;
   }
@@ -205,21 +199,21 @@
     margin-top: 20px;
   }
 
-  button {
+  .button {
     margin-top: 15px;
-    margin-right: 15px;
+    margin-right: 8px;
     padding: 10px;
     float: right;
 
     color: white;
-    background-color: #16302b;
+    /* background-color: #16302b; */
     border: none;
     border-radius: 10px;
     cursor: pointer;
   }
 
-  button:hover {
-    box-shadow: 0 0 5px #16302b;
+  .button:hover {
+    /* box-shadow: 0 0 5px #16302b; */
   }
 
   #heading {
@@ -268,6 +262,18 @@
     color: white;
   }
 
+  .green {
+    background: #7DDF64; 
+    color: white; 
+    border-color: white
+  }
+
+  .red {
+    background: #DE3C4B;
+    color: white; 
+    border-color: white
+  }
+
   #snackbar {
     position: absolute;
     left: 16px;
@@ -287,16 +293,14 @@
     font-size: 48px;
   }
 
-  @media screen and (max-width: 960px) {
-    #main {
-      width: calc(100vw - 15%);
-      height: calc(100vh - 30%);
-    }
-    #difficulty {
-      top: -16px;
-    }
-    #score {
-      font-size: 36px;
-    }
+  #fetchingQuestions {
+    margin: 0;
+    position: absolute; 
+    left: 50%; 
+    top: 50%; 
+    
+    transform: translateX(-50%) translateY(-50%); 
+    font-weight: bolder; 
+    font-size: 36px;
   }
 </style>
