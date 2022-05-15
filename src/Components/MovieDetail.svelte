@@ -1,5 +1,6 @@
 <script>
 import Review from "../Components/Review.svelte"
+import NavBar from "./NavBar.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
 import favoritesStore from "../Stores/FavoritesStore"
@@ -139,7 +140,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 </script>
 
-
+<NavBar />
 <div id="content-wrapper">
     <div id="backdrop" class="item">
         <div class="img-wrap">
