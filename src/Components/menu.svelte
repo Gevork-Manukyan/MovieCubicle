@@ -35,11 +35,9 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     $:post7= movieData[6]?.backdrop_path
     $:post8= movieData[7]?.backdrop_path
 
-    if (movieData.length === 0) {
-        getAllWeeklyTrending().then((data) => {
-            movieDataStore.set(data.results)
-        })
-    }
+    getAllWeeklyTrending().then((data) => {
+        movieDataStore.set(data.results)
+    })
 
     var counter = 1;
     setInterval(function() {
@@ -77,7 +75,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
             <div class = "sectionTitle"></div>
             <div class="movies-flex-container">
                 <!-- postcards -->
-                {#each movieData as movie, index}
+                {#each movieData as movie, index (movie.id)}
                     <PostCard movieDetails={movie} index={index}/>
                 {/each}
             </div>
