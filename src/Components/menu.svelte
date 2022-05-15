@@ -41,10 +41,6 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         })
     }
 
-    function runTrailers () {
-
-    }
-
     var counter = 1;
     setInterval(function() {
         document.getElementById('radio' + counter).checked = true;
@@ -94,6 +90,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
     #sliderr{
         overflow: hidden;
+        user-select: none;
     }
     #sliderr figure{
         position: relative;
@@ -146,7 +143,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         0 0 102px rgb(255, 0, 0),
         0 0 151px rgb(255, 0, 0);
         text-shadow: [x-offset] [y-offset] [blur-radius] [color];
-
+        user-select: none;
     }
     h1{
         animation: flicker 1.5s infinite alternate;
