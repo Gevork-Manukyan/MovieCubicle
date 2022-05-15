@@ -57,18 +57,22 @@ import authenticationStore from "../Stores/AuthenticationStore";
             <a href={item.href} use:link>{item.label}</a>
           </li>
         {/each}
+
+        <li class='noHover'>
+          <form on:submit|preventDefault={submitSearch} class="search">
+            <label for="search_movie"></label>
+            <input
+            bind:value={inputvalue}
+                name="search_movie"
+                type="text"
+                id="search_movie"
+                size="15"
+            />
+            <button type="submit" id="searchbutt">Search</button>
+          </form>
+        </li>
       </ul>
-     <div id="search">
-       <form on:submit|preventDefault={submitSearch} class="search">
-          <label for="search_movie">Search Movie</label>
-          <input
-          bind:value={inputvalue}
-              name="search_movie"
-              type="text"
-          />
-          <button type="submit" id="searchbutt">Search</button>
-     </form>
-      </div>
+     
       <div id="signoutBtn">
         <Button on:click={signout}>Sign Out</Button>
       </div>
@@ -159,6 +163,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
       justify-content: space-between;
       margin: 0;
       padding: 0 40px;
+     
     }
   
     .navbar-list.mobile {
@@ -171,6 +176,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
     }
   
     .navbar-list li {
+      float:left;
       list-style-type: none;
       position: relative;
       width: 100%;
@@ -180,6 +186,11 @@ import authenticationStore from "../Stores/AuthenticationStore";
 
     .navbar-list li:hover {
         background-color: #4c4c51;
+    }
+    .noHover{
+      /*pointer-events: click;*/
+      background-color: unset !important;
+      color: unset !important;
     }
   
     .navbar-list li:before {
@@ -207,6 +218,18 @@ import authenticationStore from "../Stores/AuthenticationStore";
       right: 0;
       margin-right: 30px;
     }
+    #searchbutt {
+     /* margin-top: 1px;*/
+      position: right;
+      right: 0;
+      margin-right: 30px;
+      color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    }
+    #search_movie{
+      margin-left: 0px;
+    }
   
     @media only screen and (min-width: 767px) {
       .mobile-icon {
@@ -216,10 +239,13 @@ import authenticationStore from "../Stores/AuthenticationStore";
       .navbar-list {
         display: flex;
         padding: 0;
+        float:left;
       }
   
       .navbar-list a {
         display: inline-flex;
+        
       }
     }
+    
   </style>
