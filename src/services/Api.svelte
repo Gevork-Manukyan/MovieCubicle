@@ -50,4 +50,11 @@
         return await request(`/tv/${showID}/credits`)
     }
 
+    export async function getMovieGenre() {
+        return await request(`/genre/movie/list`)
+    }
+
+    export async function getTvShowGenre() {
+        return await request(`/genre/tv/list`)
+    }
 </script>

@@ -4,6 +4,7 @@ import NavBar from "./NavBar.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
 import favoritesStore from "../Stores/FavoritesStore"
+import genreStore from "../Stores/GenreStore"
 import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
@@ -68,16 +69,26 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         })
     }
 
-    $: console.log(movieInfo)
+    // RETRIEVE GENRES
+    let genresStore
+    genreStore.subscribe(data => {
+        genresStore = data
+    })
+
+    function getGenres() {
+        if(genres === undefined || genres === null) 
+            return [];
+        else 
+            return genres;
+    }
 
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
-    $: genreIds = movieInfo?.genre_ids
+    $: genres = movieInfo?.genre_ids.map(id => genresStore[id])
     $: backdropPath = movieInfo?.backdrop_path
     $: posterPath = movieInfo?.poster_path
     const backdropURL = "https://image.tmdb.org/t/p/w780"
     const posterURL = "https://image.tmdb.org/t/p/w300"
-
 
     let textAreaContent = ""
     async function handleSubmit (e) {
@@ -161,11 +172,23 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     <div id="content-area">
         <div id="posterImg">
-            <span class={`material-symbols-outlined star ${favorites.has(title) ? "favorited" : ""}`} on:click={handleStarClick} >grade</span>
+            <span class={`material-symbols-outlined star ${favorites?.has(title) ? "favorited" : ""}`} on:click={handleStarClick} >grade</span>
             <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
-        <div id="overview">
-            {overview}
+        <div id="right-side">
+            <div id="overview">
+                <h2>Overview</h2>
+                {overview}
+            </div>
+            <div id="cast">
+                <h2>Cast</h2>
+            </div>
+            <div id="genres">
+                <h2>Genres</h2>
+                {#each getGenres(genres) as genre}
+                    <div class="genre">{genre}</div>
+                {/each}
+            </div>
         </div>
     </div>
 
@@ -257,6 +280,14 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         color: white;
         text-align: justify;
         align-self: center;
+    }
+
+    #cast {
+
+    }
+
+    #genres {
+        display: flex;
     }
 
     #posterImg {

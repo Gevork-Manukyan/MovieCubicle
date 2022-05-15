@@ -8,7 +8,9 @@
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
+	import genreStore from "./Stores/GenreStore"
 	import TriviaPage from './Components/Trivia/TriviaPage.svelte';
+	import {getMovieGenre} from './services/Api.svelte'
 	
 
 	// Authentication check
@@ -31,6 +33,16 @@
 		const userFavorites = new Set(currentUser?.get("favorites"))
 		favoritesStore.set(userFavorites)
 	}
+
+
+	getMovieGenre().then(data => {
+		let obj = {} 
+		data.genres.forEach(element => {
+			obj[element.id] = element.name
+		})
+		genreStore.set(obj)
+	})
+
 
 </script>
 
