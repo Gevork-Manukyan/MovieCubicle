@@ -40,7 +40,9 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
     var counter = 1;
     setInterval(function() {
-        document.getElementById('radio' + counter).checked = true;
+        const radio = document.getElementById('radio' + counter)?.checked
+        radio = true;
+
         counter++;
         if(counter > 4){
             counter = 1;
