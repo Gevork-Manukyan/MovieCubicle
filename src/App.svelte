@@ -29,7 +29,6 @@
 	// Get favorites
 	const userFavorites = new Set(currentUser?.get("favorites"))
 	favoritesStore.set(userFavorites)
-	// console.log("APP: ", userFavorites)
 
 </script>
 

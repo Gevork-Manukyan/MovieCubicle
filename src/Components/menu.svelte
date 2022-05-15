@@ -25,7 +25,6 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
         movieData = data
     })
     
-    $:console.log(movieData)
     $:postTest= movieData[0]?.backdrop_path
     $:post2= movieData[1]?.backdrop_path
     $:post3= movieData[2]?.backdrop_path

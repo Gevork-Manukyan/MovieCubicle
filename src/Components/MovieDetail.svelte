@@ -20,7 +20,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             movieDataStore.set(data.results)
         })
     }
-    // $:console.log("MOVIEINFO: ", movieInfo)
 
     // RETRIEVE TRAILER
     let video
@@ -31,7 +30,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         if (mediaType === "movie") {
             getMovieTrailer(movieInfo?.id).then(data => {
                 
-                // console.log("VIDEO: ", data)
                 video = data?.results?.filter((element) => {
                     if (element.name === "Official Trailer" || element.name === "Main Trailer")
                         return element;
@@ -56,7 +54,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     reviewStore.subscribe((reviewData) => {
         reviews = reviewData.filter(movie => movie.get("movieTitle") === title)
     })
-    // $: console.log("REVIEWS: ", reviews)
 
     if (reviews === undefined || reviews.length === 0) {
         const query = new Parse.Query("Reviews")
@@ -93,7 +90,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
         try {
             await newReviewObject.save().then(result => {
-                // console.log(Parse.User.current().get("username"))
                 reviews.unshift(result)
                 reviewStore.set(reviews)
             })
@@ -109,7 +105,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     favoritesStore.subscribe((data) => {
         favorites = data
     })
-    // $: console.log("MovieDetails: ", favorites)
     async function handleStarClick () {
 
         // Unfavorite
