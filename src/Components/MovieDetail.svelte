@@ -185,9 +185,11 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
             </div>
             <div id="genres">
                 <h2>Genres</h2>
-                {#each getGenres(genres) as genre}
-                    <div class="genre">{genre}</div>
-                {/each}
+                <div id="genres-flex-container">
+                    {#each getGenres(genres) as genre}
+                        <div class="genre">{genre}</div>
+                    {/each}
+                </div>
             </div>
         </div>
     </div>
@@ -274,20 +276,38 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         width: inherit;
     }
 
+    h2 {
+        margin-top: 20px;
+    }
+
+    #right-side {
+        color: white;
+    }
+
     #overview {
         margin-left: 25px;
         margin-right: 60px;
-        color: white;
         text-align: justify;
         align-self: center;
     }
 
     #cast {
+        margin-left: 25px;
+        margin-right: 60px;
+        text-align: justify;
+        align-self: center;
+    }
 
+    #genres-flex-container {
+        display: flex;
+        flex-direction: column;
     }
 
     #genres {
-        display: flex;
+        margin-left: 25px;
+        margin-right: 60px;
+        text-align: justify;
+        align-self: center;
     }
 
     #posterImg {
