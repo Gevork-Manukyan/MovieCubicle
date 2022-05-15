@@ -12,7 +12,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
     // List of navigation items
     const navItems = [
       { label: "Home", href: "/" },
-      { label: "Trivia", href: "/" },
+      { label: "Trivia", href: "/trivia" },
     ];
   
     // Mobile menu click event handler
@@ -53,7 +53,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
       </div>
       <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
         {#each navItems as item}
-          <li>
+          <li on:click={() => push(item.href)}>
             <a href={item.href} use:link>{item.label}</a>
           </li>
         {/each}

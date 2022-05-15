@@ -8,6 +8,7 @@
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
+	import TriviaPage from './Components/Trivia/TriviaPage.svelte';
 	
 
 	// Authentication check
@@ -33,10 +34,6 @@
 </script>
 
 
-<header>
-	<!-- <h1 id="title">Movie Gang</h1> -->
-	<!-- <NavBar /> -->
-</header>
 <main>
 
 	<Router routes={{
@@ -44,20 +41,8 @@
 		'/login': Login,
 		'/signup': SignUp,
 		'/movie/:index': MovieDetail,
-		'/search/:inputvalue': Search
+		'/search/:inputvalue': Search,
+		'/trivia': TriviaPage
 	}} />
 
 </main>
-<footer>
-
-</footer>
-
-
-<style>
-	/* #title {
-		margin: 0;
-		padding: 17px 0px 17px 20px;
-		color: #fff;
-	} */
-</style>
-  
