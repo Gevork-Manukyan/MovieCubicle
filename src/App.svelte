@@ -27,8 +27,10 @@
 
 
 	// Get favorites
-	const userFavorites = new Set(currentUser?.get("favorites"))
-	favoritesStore.set(userFavorites)
+	$: if (currentUser !== null && currentUser !== undefined) {
+		const userFavorites = new Set(currentUser?.get("favorites"))
+		favoritesStore.set(userFavorites)
+	}
 
 </script>
 

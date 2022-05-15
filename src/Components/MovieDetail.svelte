@@ -68,6 +68,8 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         })
     }
 
+    $: console.log(movieInfo)
+
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
     $: genreIds = movieInfo?.genre_ids

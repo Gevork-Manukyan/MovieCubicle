@@ -42,4 +42,12 @@
         return await request(`/tv/${showID}/videos`)
     }
 
+    export async function getMovieCast(movieID) {
+        return await request(`/movie/${movieID}/credits`)
+    }
+
+    export async function getTvShowCast(showID) {
+        return await request(`/tv/${showID}/credits`)
+    }
+
 </script>
