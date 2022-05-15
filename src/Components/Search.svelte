@@ -28,8 +28,20 @@
 </nav>
 
 
-<div>
+<div class="movies-flex-container">
     {#each movies as movie, index (movie.id)}
         <PostCard movieDetails={movie} index={index}/>
     {/each}
 </div>
+
+<style>
+.movies-flex-container{
+    height: auto;
+    padding: 0 20px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+</style>
