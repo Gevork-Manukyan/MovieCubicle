@@ -217,7 +217,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         <h2>Cast</h2>
         <div id="cast-flex-container">
             {#each cast as person (person)}
-            <div class="person">{person}</div>
+                <div class="person">{person}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</div>
             {/each}
         </div>
     </div>
@@ -326,6 +326,17 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         align-self: center;
         color: white;
     }
+
+    #cast-flex-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 780px;
+    }
+
+    .person {
+        /* margin-right: 15px; */
+    }
     
   
     #genres-flex-container {
@@ -383,8 +394,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        /* padding-bottom: 32px;
-        margin-top: 50px; */
     }
     
     #review-area {
