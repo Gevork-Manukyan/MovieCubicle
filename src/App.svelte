@@ -40,7 +40,7 @@
 		data.genres.forEach(element => {
 			obj[element.id] = element.name
 		})
-		genreStore.set(obj)
+		genreStore.set()
 	})
 
 

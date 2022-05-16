@@ -95,13 +95,14 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         })
 
     } else if (mediaType === "tv") {
-        getMovieCast(movieInfo?.id).then(data => {
+        getTvShowCast(movieInfo?.id).then(data => {
             cast = data.cast.map(element => {
                 return element.name;
             })
         })
     }}
 
+    
 
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
@@ -319,9 +320,12 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         align-self: center;
     }
 
+    #cast h2 {
+        text-align: center;
+    }
+
     #cast {
-        margin-left: 25px;
-        margin-right: 60px;
+        margin: 0px 40px;
         text-align: justify;
         align-self: center;
         color: white;
@@ -331,13 +335,9 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        width: 780px;
+        width: fit-content;
+        justify-content: center;
     }
-
-    .person {
-        /* margin-right: 15px; */
-    }
-    
   
     #genres-flex-container {
         display: flex;
