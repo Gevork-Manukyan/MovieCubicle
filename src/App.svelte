@@ -8,7 +8,10 @@
 	import Menu from "./Components/Menu.svelte";
 	import authenticationStore from "./Stores/AuthenticationStore"
 	import favoritesStore from "./Stores/FavoritesStore"
+	import genreStore from "./Stores/GenreStore"
 	import TriviaPage from './Components/Trivia/TriviaPage.svelte';
+	import {getMovieGenre, getTvShowGenre} from './services/Api.svelte'
+import { element } from 'svelte/internal';
 	
 
 	// Authentication check
@@ -30,8 +33,25 @@
 	$: if (currentUser !== null && currentUser !== undefined) {
 		const userFavorites = new Set(currentUser?.get("favorites"))
 		favoritesStore.set(userFavorites)
-		console.log(userFavorites)
 	}
+
+
+	getMovieGenre().then(data => {
+		let obj = {} 
+		data.genres.forEach(element => {
+			obj[element.id] = element.name
+		})
+		$genreStore.movie = obj
+	})
+
+	getTvShowGenre().then(data => {
+		let obj = {}
+		data.genres.forEach(element => {
+			obj[element.id] = element.name
+		})
+		$genreStore.tv = obj
+	})
+
 
 </script>
 

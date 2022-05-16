@@ -4,7 +4,8 @@ import NavBar from "./NavBar.svelte"
 import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
 import favoritesStore from "../Stores/FavoritesStore"
-import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer } from "../services/Api.svelte"
+import genreStore from "../Stores/GenreStore"
+import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer, getMovieCast, getTvShowCast } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
@@ -68,14 +69,48 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         })
     }
 
+    // RETRIEVE GENRES
+    let genresStore
+    genreStore.subscribe(data => {
+        genresStore = data
+    })
+
+    function getGenres() {
+        if(genres === undefined || genres === null) 
+            return [];
+        else 
+            return genres;
+    }
+
+
+    // RETRIEVE CAST
+    let cast = []
+    $: mediaType = movieInfo?.media_type
+    $: {
+        if (mediaType === "movie") {
+        getMovieCast(movieInfo?.id).then(data => {
+            cast = data.cast.map(element => {
+                return element.name;
+            })
+        })
+
+    } else if (mediaType === "tv") {
+        getTvShowCast(movieInfo?.id).then(data => {
+            cast = data.cast.map(element => {
+                return element.name;
+            })
+        })
+    }}
+
+    
+
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
-    $: genreIds = movieInfo?.genre_ids
+    $: genres = movieInfo?.genre_ids.map(id => genresStore[movieInfo.media_type][id])
     $: backdropPath = movieInfo?.backdrop_path
     $: posterPath = movieInfo?.poster_path
     const backdropURL = "https://image.tmdb.org/t/p/w780"
     const posterURL = "https://image.tmdb.org/t/p/w300"
-
 
     let textAreaContent = ""
     async function handleSubmit (e) {
@@ -159,14 +194,35 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     <div id="content-area">
         <div id="posterImg">
-            <span class={`material-symbols-outlined star ${favorites.has(title) ? "favorited" : ""}`} on:click={handleStarClick} >grade</span>
+            <span class={`material-symbols-outlined star ${favorites?.has(title) ? "favorited" : ""}`} on:click={handleStarClick} >grade</span>
             <img src={posterURL + posterPath} alt="{title} poster" />
         </div>
-        <div id="overview">
-            {overview}
+        <div id="right-side">
+            <div id="overview">
+                <h2>Overview</h2>
+                {overview}
+            </div>
+        
+            <div id="genres">
+                <h2>Genres</h2>
+                <div id="genres-flex-container">
+                    {#each getGenres(genres) as genre}
+                        <div class="genre">{genre}</div>
+                    {/each}
+                </div>
+            </div>
         </div>
     </div>
 
+    <div id="cast">
+        <h2>Cast</h2>
+        <div id="cast-flex-container">
+            {#each cast as person (person)}
+                <div class="person">{person}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</div>
+            {/each}
+        </div>
+    </div>
+        
     <div id="review-area">
         <h2 id="reviewTitle">Review</h2>
         <Form on:submit={handleSubmit}>
@@ -249,10 +305,49 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         width: inherit;
     }
 
+    h2 {
+        margin-top: 20px;
+    }
+
+    #right-side {
+        color: white;
+    }
+
     #overview {
         margin-left: 25px;
         margin-right: 60px;
+        text-align: justify;
+        align-self: center;
+    }
+
+    #cast h2 {
+        text-align: center;
+    }
+
+    #cast {
+        margin: 0px 40px;
+        text-align: justify;
+        align-self: center;
         color: white;
+    }
+
+    #cast-flex-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: fit-content;
+        justify-content: center;
+    }
+  
+    #genres-flex-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    #genres {
+        margin-left: 25px;
+        margin-right: 60px;
         text-align: justify;
         align-self: center;
     }
@@ -299,8 +394,6 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        /* padding-bottom: 32px;
-        margin-top: 50px; */
     }
     
     #review-area {
