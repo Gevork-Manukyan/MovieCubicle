@@ -5,7 +5,7 @@ import movieDataStore from "../Stores/MovieDataStore"
 import reviewStore from "../Stores/ReviewStore"
 import favoritesStore from "../Stores/FavoritesStore"
 import genreStore from "../Stores/GenreStore"
-import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer } from "../services/Api.svelte"
+import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer, getMovieCast, getTvShowCast } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
 
@@ -81,6 +81,26 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         else 
             return genres;
     }
+
+
+    // RETRIEVE CAST
+    let cast = []
+    const mediaType = movieInfo?.media_type
+    if (mediaType === "movie") {
+        getMovieCast(movieInfo?.id).then(data => {
+            cast = data.cast.map(element => {
+                return element.name;
+            })
+        })
+
+    } else if (mediaType === "tv") {
+        getMovieCast(movieInfo?.id).then(data => {
+            cast = data.cast.map(element => {
+                return element.name;
+            })
+        })
+    }
+
 
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
@@ -180,9 +200,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
                 <h2>Overview</h2>
                 {overview}
             </div>
-            <div id="cast">
-                <h2>Cast</h2>
-            </div>
+        
             <div id="genres">
                 <h2>Genres</h2>
                 <div id="genres-flex-container">
@@ -194,6 +212,15 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         </div>
     </div>
 
+    <div id="cast">
+        <h2>Cast</h2>
+        <div id="cast-flex-container">
+            {#each cast as person (person)}
+            <div class="person">{person}</div>
+            {/each}
+        </div>
+    </div>
+        
     <div id="review-area">
         <h2 id="reviewTitle">Review</h2>
         <Form on:submit={handleSubmit}>
@@ -296,11 +323,14 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         margin-right: 60px;
         text-align: justify;
         align-self: center;
+        color: white;
     }
-
+    
+  
     #genres-flex-container {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
     }
 
     #genres {
