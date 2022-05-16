@@ -10,7 +10,8 @@
 	import favoritesStore from "./Stores/FavoritesStore"
 	import genreStore from "./Stores/GenreStore"
 	import TriviaPage from './Components/Trivia/TriviaPage.svelte';
-	import {getMovieGenre} from './services/Api.svelte'
+	import {getMovieGenre, getTvShowGenre} from './services/Api.svelte'
+import { element } from 'svelte/internal';
 	
 
 	// Authentication check
@@ -40,7 +41,15 @@
 		data.genres.forEach(element => {
 			obj[element.id] = element.name
 		})
-		genreStore.set()
+		$genreStore.movie = obj
+	})
+
+	getTvShowGenre().then(data => {
+		let obj = {}
+		data.genres.forEach(element => {
+			obj[element.id] = element.name
+		})
+		$genreStore.tv = obj
 	})
 
 

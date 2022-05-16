@@ -106,7 +106,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
-    $: genres = movieInfo?.genre_ids.map(id => genresStore[id])
+    $: genres = movieInfo?.genre_ids.map(id => genresStore[movieInfo.media_type][id])
     $: backdropPath = movieInfo?.backdrop_path
     $: posterPath = movieInfo?.poster_path
     const backdropURL = "https://image.tmdb.org/t/p/w780"
