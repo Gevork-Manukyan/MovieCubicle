@@ -85,8 +85,9 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     // RETRIEVE CAST
     let cast = []
-    const mediaType = movieInfo?.media_type
-    if (mediaType === "movie") {
+    $: mediaType = movieInfo?.media_type
+    $: {
+        if (mediaType === "movie") {
         getMovieCast(movieInfo?.id).then(data => {
             cast = data.cast.map(element => {
                 return element.name;
@@ -99,7 +100,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
                 return element.name;
             })
         })
-    }
+    }}
 
 
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
