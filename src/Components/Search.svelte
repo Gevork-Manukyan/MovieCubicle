@@ -38,10 +38,12 @@
 .movies-flex-container{
     height: auto;
     padding: 0 20px;
+    margin-top: 50px;
 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    color: white;
 }
 
 </style>
