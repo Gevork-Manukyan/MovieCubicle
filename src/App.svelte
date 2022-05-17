@@ -11,7 +11,6 @@
 	import genreStore from "./Stores/GenreStore"
 	import TriviaPage from './Components/Trivia/TriviaPage.svelte';
 	import {getMovieGenre, getTvShowGenre} from './services/Api.svelte'
-import { element } from 'svelte/internal';
 	
 
 	// Authentication check

@@ -7,6 +7,9 @@ import favoritesStore from "../Stores/FavoritesStore"
 import genreStore from "../Stores/GenreStore"
 import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer, getMovieCast, getTvShowCast } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
+import {getMovieGenre, getTvShowGenre} from '../Stores/GenreStore'
+
+
 
 
     export let params;
@@ -81,6 +84,22 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         else 
             return genres;
     }
+
+    getMovieGenre().then(data => {
+		let obj = {} 
+		data.genres.forEach(element => {
+			obj[element.id] = element.name
+		})
+		$genreStore.movie = obj
+	})
+
+	getTvShowGenre().then(data => {
+		let obj = {}
+		data.genres.forEach(element => {
+			obj[element.id] = element.name
+		})
+		$genreStore.tv = obj
+	})
 
 
     // RETRIEVE CAST
