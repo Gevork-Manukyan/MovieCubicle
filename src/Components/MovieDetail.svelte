@@ -105,15 +105,25 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
 
     }
 
+    // Movie title
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
+    // Movie description
     $: overview = movieInfo?.overview
+    // Movie genre array
     $: genres = movieInfo?.genre_ids.map(id => genresStore["movie"][id])
+    // Movie backdrop path
     $: backdropPath = movieInfo?.backdrop_path
+    // Movie poster path
     $: posterPath = movieInfo?.poster_path
+    // Base URL for backdrop api call
     const backdropURL = "https://image.tmdb.org/t/p/w780"
+    // Base URL for poster api call
     const posterURL = "https://image.tmdb.org/t/p/w300"
 
+
+    // Variable to store review text
     let textAreaContent = ""
+    // Creates Parse object with review information and calls api to store review in database
     async function handleSubmit (e) {
         e.preventDefault()
 
@@ -138,10 +148,13 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
     }
 
 
+    // Stores user favorites
     let favorites
     favoritesStore.subscribe((data) => {
         favorites = data
     })
+
+    // Event handler for favorites star
     async function handleStarClick () {
 
         // Unfavorite
@@ -168,7 +181,7 @@ import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
         }
     }
 
-
+    // Checks if trailer is playing
     let isPlayed = false
     function handlePlayButtonClick () {
         isPlayed = true

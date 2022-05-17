@@ -15,6 +15,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         push("/")
     }
 
+    // Calls api function to login user 
     async function login () {
 
         let parseUser = Parse.User.logIn(username, password).then((parseUser) => {

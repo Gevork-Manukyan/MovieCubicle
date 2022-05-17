@@ -35,6 +35,7 @@
 	}
 
 
+	// Retrieve genres for movies and put in store
 	getMovieGenre().then(data => {
 		let obj = {} 
 		data.genres.forEach(element => {
@@ -43,6 +44,7 @@
 		$genreStore.movie = obj
 	})
 
+	// Retrieve genres for tv shows and put in store
 	getTvShowGenre().then(data => {
 		let obj = {}
 		data.genres.forEach(element => {
@@ -57,6 +59,7 @@
 
 <main>
 
+	<!-- Virtual router -->
 	<Router routes={{
 		'/': Menu,
 		'/login': Login,

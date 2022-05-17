@@ -33,6 +33,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
       mediaListener.addListener(mediaQueryHandler);
     });
 
+    // Event handler for signing out
     const signout = () => {
       Parse.User.logOut()
       authenticationStore.set({
@@ -41,6 +42,7 @@ import authenticationStore from "../Stores/AuthenticationStore";
       push("/login")
     }
   
+    // Event handler for searching
     function submitSearch(){
       push("/search/" + inputvalue)
     }

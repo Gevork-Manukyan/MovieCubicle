@@ -16,6 +16,7 @@ import authenticationStore from "../../Stores/AuthenticationStore"
         push("/")
     }
 
+    // Calls api function to signup user 
     async function signup() {
         
         let user = new Parse.User()

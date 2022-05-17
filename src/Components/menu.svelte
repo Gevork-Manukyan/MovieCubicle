@@ -6,10 +6,10 @@ import authenticationStore from "../Stores/AuthenticationStore"
 import movieDataStore from "../Stores/MovieDataStore.js"
 import { getAllWeeklyTrending } from "../services/Api.svelte"
 
+    /* Base url for pi calls to get movie poster images */
     const backdropURL = "https://image.tmdb.org/t/p/w780"
    
-
-
+    // If there is a user currently logged in then store their session. Otherwise send to login page
     const currentUser = Parse.User.current()
 	if (currentUser === null){		
 		push("/login")
@@ -20,12 +20,19 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 	}
 
 
+    // Variable to store all movies data
     let movieData = []
     movieDataStore.subscribe((data) => {
         movieData = data
     })
-    
-    $:postTest= movieData[0]?.backdrop_path
+
+    // Api call to get currently trending movies
+    getAllWeeklyTrending().then((data) => {
+        movieDataStore.set(data.results)
+    })
+
+    // Images paths for slider
+    $:post1= movieData[0]?.backdrop_path
     $:post2= movieData[1]?.backdrop_path
     $:post3= movieData[2]?.backdrop_path
     $:post4= movieData[3]?.backdrop_path
@@ -34,10 +41,7 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     $:post7= movieData[6]?.backdrop_path
     $:post8= movieData[7]?.backdrop_path
 
-    getAllWeeklyTrending().then((data) => {
-        movieDataStore.set(data.results)
-    })
-
+    // Logic to automatically go through slider
     var counter = 1;
     setInterval(function() {
         const radio = document.getElementById('radio' + counter)?.checked
@@ -48,6 +52,8 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
             counter = 1;
         }
     }, 5000);
+
+
 </script>
 
 <nav>
@@ -57,9 +63,9 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
     <h1>Movie Gang</h1>
 </div>
 
-<div id="sliderr">
+<div id="slider">
     <figure>
-        <img src={backdropURL + postTest} alt="">
+        <img src={backdropURL + post1} alt="">
         <img src={backdropURL + post2} alt="">
         <img src={backdropURL + post3} alt="">
         <img src={backdropURL + post4} alt="">
@@ -87,18 +93,18 @@ import { getAllWeeklyTrending } from "../services/Api.svelte"
 
 <style>
 
-    #sliderr{
+    #slider{
         overflow: hidden;
         user-select: none;
     }
-    #sliderr figure{
+    #slider figure{
         position: relative;
         width: 500%;
         margin: 0;
         left: 0;
         animation: 20s slider infinite;
     }
-    #sliderr figure img{
+    #slider figure img{
         width:10%;
         float: left;
     }

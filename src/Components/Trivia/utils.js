@@ -1,9 +1,11 @@
+// Decodes html response
 function htmlDecode(input) {
   const e = document.createElement('textarea');
   e.innerHTML = input;
   return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue;
 }
 
+// Randomizer for trivia
 function shuffle(arr = []) {
   const array = arr;
   for (let i = arr.length - 1; i > 0; i -= 1) {

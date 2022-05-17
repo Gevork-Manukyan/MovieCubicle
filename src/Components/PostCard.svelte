@@ -9,11 +9,7 @@ import { push } from "svelte-spa-router";
     const posterPath= movieDetails?.poster_path;
 </script>
 
-<!-- on:click={push("/movie/" + movieTitle)} -->
 <div class="postcard" on:click={push("/movie/" + index)}>
-    <!-- image of the movie goes here -->
-    <!-- <img src="" alt=""> -->
-    <!-- description of the movie goes here -->
     <h3 class="Title">{movieTitle}</h3>
     <img src="https://image.tmdb.org/t/p/original{posterPath}" alt="{movieTitle} poster" />
     <p class="Overview">{movieOverview}</p>

@@ -8,18 +8,22 @@
     export let params
     $: inputValue=params.inputvalue
     
+    // Variable to store all searched movies
     $: movies=[];
     searchStore.subscribe(data => {
         movies = data
     })
 
+    // Call search api and put returned data is store
     async function fetchMovies(inputValue){
         let res= await searchMovie(inputValue);
         searchStore.set(res.results)
     }
 
+    // Calls async function to retrieve data and put into store
     $: fetchMovies(inputValue);
-
+    
+    // Sets searched movies into store
     $:movieDataStore.set(movies)
     
 </script>
