@@ -7,8 +7,6 @@ import favoritesStore from "../Stores/FavoritesStore"
 import genreStore from "../Stores/GenreStore"
 import { getAllWeeklyTrending, getMovieTrailer, getTvShowTrailer, getMovieCast, getTvShowCast } from "../services/Api.svelte"
 import { Button, Form, FormGroup, Input, Label } from 'sveltestrap';
-import {getMovieGenre, getTvShowGenre} from '../Stores/GenreStore'
-
 
 
 
@@ -85,47 +83,31 @@ import {getMovieGenre, getTvShowGenre} from '../Stores/GenreStore'
             return genres;
     }
 
-    getMovieGenre().then(data => {
-		let obj = {} 
-		data.genres.forEach(element => {
-			obj[element.id] = element.name
-		})
-		$genreStore.movie = obj
-	})
-
-	getTvShowGenre().then(data => {
-		let obj = {}
-		data.genres.forEach(element => {
-			obj[element.id] = element.name
-		})
-		$genreStore.tv = obj
-	})
-
 
     // RETRIEVE CAST
     let cast = []
     $: mediaType = movieInfo?.media_type
     $: {
-        if (mediaType === "movie") {
-        getMovieCast(movieInfo?.id).then(data => {
-            cast = data.cast.map(element => {
-                return element.name;
+ 
+        if (mediaType === "tv") {
+            getTvShowCast(movieInfo?.id).then(data => {
+                cast = data.cast.map(element => {
+                    return element.name;
+                })
             })
-        })
-
-    } else if (mediaType === "tv") {
-        getTvShowCast(movieInfo?.id).then(data => {
-            cast = data.cast.map(element => {
-                return element.name;
+        } else {
+            getMovieCast(movieInfo?.id).then(data => {
+                cast = data.cast.map(element => {
+                    return element.name;
+                })
             })
-        })
-    }}
+        }
 
-    
+    }
 
     $: title =  movieInfo?.title !== undefined ? movieInfo?.title : movieInfo?.name
     $: overview = movieInfo?.overview
-    $: genres = movieInfo?.genre_ids.map(id => genresStore[movieInfo.media_type][id])
+    $: genres = movieInfo?.genre_ids.map(id => genresStore["movie"][id])
     $: backdropPath = movieInfo?.backdrop_path
     $: posterPath = movieInfo?.poster_path
     const backdropURL = "https://image.tmdb.org/t/p/w780"

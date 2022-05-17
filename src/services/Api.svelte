@@ -34,6 +34,8 @@
     export async function getMovieTrailer(movieID) {
         return await request(`/movie/${movieID}/videos`)
     }
+
+    //TODO: this endpoint doesn't return media_type
     export async function searchMovie(input) {
         return await request(`/search/movie`, `&query=${input}&page=1&include_adult=false`)
     }
